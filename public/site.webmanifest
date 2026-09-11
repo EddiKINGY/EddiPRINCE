@@ -1,0 +1,17 @@
+{
+  "name": "EddiPRINCE — Digital Archive",
+  "short_name": "EddiPRINCE",
+  "description": "Personal digital archive and headquarters of EddiPRINCE — Creator, Builder, Learner, and Founder-in-progress.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBFBFA",
+  "theme_color": "#FBFBFA",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

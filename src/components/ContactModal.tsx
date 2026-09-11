@@ -38,7 +38,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   if (!isOpen) return null;
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('eddi@eddiprince.com');
+    navigator.clipboard.writeText('davidabbahinnocent@gmail.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -46,6 +46,20 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !message) return;
+    try {
+      const existing = JSON.parse(localStorage.getItem('eddiprince_dispatches') || '[]');
+      existing.push({
+        id: `dispatch-${Date.now()}`,
+        name,
+        email,
+        topic,
+        message,
+        date: new Date().toISOString(),
+      });
+      localStorage.setItem('eddiprince_dispatches', JSON.stringify(existing));
+    } catch {
+      // Graceful fallback if localStorage is disabled
+    }
     setSubmitted(true);
   };
 
@@ -91,7 +105,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <div className="min-w-0">
                 <div className="text-[11px] font-mono-code text-neutral-500">Direct Inbox</div>
                 <div className="text-sm font-mono-code font-medium text-neutral-900 dark:text-neutral-100 truncate">
-                  eddi@eddiprince.com
+                  davidabbahinnocent@gmail.com
                 </div>
               </div>
             </div>
@@ -116,7 +130,11 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
           {/* Form */}
           {submitted ? (
-            <div className="p-6 text-center space-y-3 bg-neutral-50 dark:bg-neutral-900/40 rounded-xl border border-neutral-200 dark:border-neutral-800">
+            <div
+              role="status"
+              aria-live="polite"
+              className="p-6 text-center space-y-3 bg-neutral-50 dark:bg-neutral-900/40 rounded-xl border border-neutral-200 dark:border-neutral-800"
+            >
               <div className="w-10 h-10 mx-auto rounded-full bg-emerald-100 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                 <Check className="w-5 h-5" />
               </div>
@@ -140,10 +158,11 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-xs font-mono-code text-neutral-600 dark:text-neutral-400 mb-1">
+                  <label htmlFor="contact-name" className="block text-xs font-mono-code text-neutral-600 dark:text-neutral-400 mb-1">
                     Your Name
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     required
                     value={name}
@@ -153,10 +172,11 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono-code text-neutral-600 dark:text-neutral-400 mb-1">
+                  <label htmlFor="contact-email" className="block text-xs font-mono-code text-neutral-600 dark:text-neutral-400 mb-1">
                     Your Email
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     required
                     value={email}
@@ -168,10 +188,11 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               </div>
 
               <div>
-                <label className="block text-xs font-mono-code text-neutral-600 dark:text-neutral-400 mb-1">
+                <label htmlFor="contact-topic" className="block text-xs font-mono-code text-neutral-600 dark:text-neutral-400 mb-1">
                   Topic / Context
                 </label>
                 <select
+                  id="contact-topic"
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   className="w-full min-h-[44px] px-3.5 py-2 text-base sm:text-sm bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:outline-none focus:border-neutral-500 text-neutral-900 dark:text-neutral-100"
@@ -185,10 +206,11 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               </div>
 
               <div>
-                <label className="block text-xs font-mono-code text-neutral-600 dark:text-neutral-400 mb-1">
+                <label htmlFor="contact-message" className="block text-xs font-mono-code text-neutral-600 dark:text-neutral-400 mb-1">
                   Message
                 </label>
                 <textarea
+                  id="contact-message"
                   required
                   rows={4}
                   value={message}
@@ -213,13 +235,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             <span className="font-mono-code">Public Profiles</span>
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href="https://twitter.com/eddiprince"
+                href="https://x.com/3dd1pr1nc3"
                 target="_blank"
                 rel="noreferrer"
                 className="min-h-[36px] flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white transition-colors"
               >
                 <Twitter className="w-3.5 h-3.5" />
-                <span>@eddiprince</span>
+                <span>@3dd1pr1nc3</span>
               </a>
               <a
                 href="https://github.com/eddiprince"
@@ -231,7 +253,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 <span>GitHub</span>
               </a>
               <a
-                href="https://linkedin.com/in/eddiprince"
+                href="https://www.linkedin.com/in/david-innocent-443465215"
                 target="_blank"
                 rel="noreferrer"
                 className="min-h-[36px] flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white transition-colors"

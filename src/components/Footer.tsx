@@ -38,10 +38,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenContact }) => 
 
             <div className="pt-2 flex items-center gap-2">
               <a
-                href="https://twitter.com/eddiprince"
+                href="https://x.com/3dd1pr1nc3"
                 target="_blank"
                 rel="noreferrer"
-                aria-label="X / Twitter"
+                aria-label="X"
                 className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
               >
                 <Twitter className="w-4 h-4" />
@@ -56,7 +56,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenContact }) => 
                 <Github className="w-4 h-4" />
               </a>
               <a
-                href="https://linkedin.com/in/eddiprince"
+                href="https://www.linkedin.com/in/david-innocent-443465215"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
@@ -144,6 +144,30 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenContact }) => 
                   Curated Resources
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('contact')}
+                  className="w-full text-left py-2 px-1 rounded hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100/50 dark:hover:bg-neutral-800/30 transition-colors min-h-[40px] flex items-center"
+                >
+                  Contact & Inquiries
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('privacy')}
+                  className="w-full text-left py-2 px-1 rounded hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100/50 dark:hover:bg-neutral-800/30 transition-colors min-h-[40px] flex items-center"
+                >
+                  Privacy Policy
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('terms')}
+                  className="w-full text-left py-2 px-1 rounded hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100/50 dark:hover:bg-neutral-800/30 transition-colors min-h-[40px] flex items-center text-neutral-800 dark:text-neutral-200"
+                >
+                  Terms & Colophon
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -157,11 +181,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenContact }) => 
             </p>
             <div className="pt-1">
               <a
-                href="mailto:eddi@eddiprince.com"
+                href="mailto:davidabbahinnocent@gmail.com"
                 className="inline-flex items-center gap-1.5 text-xs font-mono-code text-neutral-900 dark:text-neutral-100 hover:underline min-h-[40px]"
               >
                 <Mail className="w-3.5 h-3.5 text-neutral-500" />
-                eddi@eddiprince.com
+                davidabbahinnocent@gmail.com
                 <ExternalLink className="w-3 h-3 text-neutral-400" />
               </a>
             </div>

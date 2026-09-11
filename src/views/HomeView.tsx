@@ -69,83 +69,44 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenContact })
               </span>
             </div>
 
-            {/* Identity & Mission (Answers: Who is Eddi? & What does he do?) */}
+            {/* Identity & Mission (Answers: Who is Eddi? What is he building? What is the site?) */}
             <div className="space-y-3 sm:space-y-4">
-              <h1 className="font-serif-display text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-7xl text-neutral-900 dark:text-neutral-50 tracking-tight leading-[1.02] break-words">
+              <h1 className="font-serif-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-neutral-900 dark:text-neutral-50 tracking-tight leading-[1.02] break-words">
                 EddiPRINCE
               </h1>
 
-              <p className="font-serif-display text-xl sm:text-2xl md:text-3xl text-neutral-600 dark:text-neutral-300 leading-snug break-words">
-                Builder, systems thinker, and creator documenting the journey from zero.
+              <p className="font-serif-display text-xl sm:text-2xl md:text-3xl text-neutral-700 dark:text-neutral-200 leading-snug break-words">
+                Software builder, systems thinker, and founder documenting the journey from zero.
               </p>
 
-              <p className="text-sm sm:text-base md:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-2xl pt-1">
-                I design resilient software architectures, explore AI-leveraged engineering, and formulate trade protocols for emerging commerce corridors. No synthetic prestige, no vanity metrics — just compounding real work in public.
+              <p className="text-sm sm:text-base md:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl font-sans-body">
+                This site is my living digital archive and public headquarters. I formulate cross-border commerce protocols, build resilient software systems, and document real founder progress in public — without synthetic prestige or vanity metrics.
               </p>
             </div>
 
-            {/* Two Primary Hero Actions & Quick-Hop Wayfinding Rail */}
-            <div className="pt-1 space-y-4">
+            {/* Exactly Two Primary Hero Actions (Hick's Law, Fitts's Law, Von Restorff Effect, Pareto 80/20) */}
+            <div className="pt-2">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-                {/* Primary Action 1 (Von Restorff High Contrast) */}
+                {/* Primary Action 1 (Von Restorff High Contrast, Fitts's Law 48px Target) */}
                 <button
-                  id="hero-action-primary"
-                  onClick={() => onNavigate('builds', 'tatashi-market')}
-                  className="w-full sm:w-auto min-h-[48px] px-6 py-3.5 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-medium text-sm flex items-center justify-center gap-2 hover:bg-neutral-800 dark:hover:bg-neutral-100 active:scale-[0.99] transition-all shadow-sm group"
+                  id="hero-action-explore-work"
+                  onClick={() => onNavigate('builds')}
+                  className="w-full sm:w-auto min-h-[48px] px-6 py-3.5 rounded-xl bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-medium text-sm flex items-center justify-center gap-2 hover:bg-neutral-800 dark:hover:bg-neutral-100 active:scale-[0.98] transition-all shadow-sm group focus:outline-none focus:ring-2 focus:ring-neutral-400"
                 >
-                  <Layers className="w-4 h-4 text-neutral-300 dark:text-neutral-700" />
-                  <span>Inspect Flagship Build</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  <Layers className="w-4 h-4 text-neutral-300 dark:text-neutral-700" aria-hidden="true" />
+                  <span>Explore the work</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                 </button>
 
-                {/* Secondary Action 2 (Hick's Law Complementary Pair) */}
+                {/* Secondary Action 2 (Hick's Law Complementary Pair, Fitts's Law Target) */}
                 <button
-                  id="hero-action-secondary"
-                  onClick={() => onNavigate('notes', 'the-zero-state')}
-                  className="w-full sm:w-auto min-h-[48px] px-6 py-3.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900/50 text-neutral-800 dark:text-neutral-200 font-medium text-sm flex items-center justify-center gap-2 hover:border-neutral-400 dark:hover:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 active:scale-[0.99] transition-all"
+                  id="hero-action-read-journey"
+                  onClick={() => onNavigate('journey')}
+                  className="w-full sm:w-auto min-h-[48px] px-6 py-3.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-neutral-900/60 text-neutral-800 dark:text-neutral-200 font-medium text-sm flex items-center justify-center gap-2 hover:border-neutral-400 dark:hover:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 active:scale-[0.98] transition-all focus:outline-none focus:ring-2 focus:ring-neutral-400"
                 >
-                  <BookOpen className="w-4 h-4 text-neutral-500" />
-                  <span>Read "The Zero State" Manifesto</span>
+                  <Compass className="w-4 h-4 text-neutral-500 dark:text-neutral-400" aria-hidden="true" />
+                  <span>Read the journey</span>
                 </button>
-              </div>
-
-              {/* Quick-Hop Wayfinding Rail */}
-              <div className="pt-2 space-y-1.5">
-                <span className="text-[11px] font-mono-code uppercase tracking-wider text-neutral-400 block px-0.5">
-                  Page Outline
-                </span>
-                <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-3.5 px-3.5 sm:mx-0 sm:px-0 sm:flex-wrap">
-                  <a
-                    href="#current-state"
-                    className="min-h-[36px] px-3 py-1 rounded-full text-xs font-mono-code bg-neutral-200/50 dark:bg-neutral-800/60 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 whitespace-nowrap shrink-0 flex items-center transition-colors active:scale-95"
-                  >
-                    02. Current State ↓
-                  </a>
-                  <a
-                    href="#work"
-                    className="min-h-[36px] px-3 py-1 rounded-full text-xs font-mono-code bg-neutral-200/50 dark:bg-neutral-800/60 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 whitespace-nowrap shrink-0 flex items-center transition-colors active:scale-95"
-                  >
-                    03. Work ↓
-                  </a>
-                  <a
-                    href="#writing"
-                    className="min-h-[36px] px-3 py-1 rounded-full text-xs font-mono-code bg-neutral-200/50 dark:bg-neutral-800/60 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 whitespace-nowrap shrink-0 flex items-center transition-colors active:scale-95"
-                  >
-                    04. Writing ↓
-                  </a>
-                  <a
-                    href="#journey"
-                    className="min-h-[36px] px-3 py-1 rounded-full text-xs font-mono-code bg-neutral-200/50 dark:bg-neutral-800/60 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 whitespace-nowrap shrink-0 flex items-center transition-colors active:scale-95"
-                  >
-                    05. Journey ↓
-                  </a>
-                  <a
-                    href="#continuation"
-                    className="min-h-[36px] px-3 py-1 rounded-full text-xs font-mono-code bg-neutral-200/50 dark:bg-neutral-800/60 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 whitespace-nowrap shrink-0 flex items-center transition-colors active:scale-95"
-                  >
-                    06. Continuation ↓
-                  </a>
-                </div>
               </div>
             </div>
           </div>
@@ -368,6 +329,22 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenContact })
             <p className="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl">
               {featuredProject.tagline}
             </p>
+
+            {/* Architectural Blueprint Preview */}
+            <div className="rounded-xl overflow-hidden border border-neutral-200/80 dark:border-neutral-800/80 shadow-xs">
+              <picture>
+                <source srcSet="/og/og-project-tatashi-market.webp" type="image/webp" />
+                <img
+                  src="/og/og-project-tatashi-market.jpg"
+                  alt="Tatashi Market cross-border verification architecture blueprint and lifecycle statechart"
+                  width={1200}
+                  height={630}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto object-cover aspect-[1200/630]"
+                />
+              </picture>
+            </div>
 
             {/* Friction vs Architecture decomposition */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-6 pt-1 text-sm">
@@ -632,10 +609,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenContact })
             )}
 
             <a
-              href="mailto:eddi@eddiprince.com"
+              href="mailto:davidabbahinnocent@gmail.com"
               className="w-full sm:w-auto min-h-[46px] px-5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-mono-code font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 hover:bg-white dark:hover:bg-neutral-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-center"
             >
-              <span>eddi@eddiprince.com</span>
+              <span>davidabbahinnocent@gmail.com</span>
             </a>
           </div>
         </div>

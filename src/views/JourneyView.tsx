@@ -83,7 +83,7 @@ export const JourneyView: React.FC<JourneyViewProps> = ({ onNavigate }) => {
         {filteredMilestones.map((m) => (
           <div key={m.id} className="relative group">
             {/* Timeline node icon */}
-            <div className="absolute -left-[37px] sm:-left-[45px] top-1.5 w-6 h-6 rounded-full bg-white dark:bg-[#0E0F12] border border-neutral-300 dark:border-neutral-700 flex items-center justify-center shadow-xs">
+            <div className="absolute -left-3 top-1.5 w-6 h-6 rounded-full bg-white dark:bg-[#0E0F12] border border-neutral-300 dark:border-neutral-700 flex items-center justify-center shadow-xs">
               {getMilestoneIcon(m.type)}
             </div>
 

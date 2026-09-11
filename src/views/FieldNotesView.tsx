@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { PageRoute } from '../types';
 import { FIELD_NOTES } from '../data/content';
-import { ArrowRight, ArrowLeft, Copy, Check, Share2 } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Copy, Check, Share2, BookOpen } from 'lucide-react';
 import { ConnectedArchiveSection } from '../components/ConnectedArchiveSection';
 import { getConnectedArchiveContext } from '../data/archiveGraph';
 import { Breadcrumb } from '../components/Breadcrumb';
+import { StickyMobileCta } from '../components/StickyMobileCta';
 
 interface FieldNotesViewProps {
   selectedNoteSlug?: string;
@@ -36,6 +37,18 @@ export const FieldNotesView: React.FC<FieldNotesViewProps> = ({ selectedNoteSlug
 
   // If a note is selected, render the focused editorial reading experience
   if (selectedNote) {
+    const knownImages: Record<string, string> = {
+      'the-zero-state': 'og-note-the-zero-state',
+      'deconstructing-tatashi-market': 'og-note-deconstructing-tatashi-market',
+      'ai-leverage-and-velocity': 'og-note-ai-leverage-and-velocity',
+    };
+    const imageBase = knownImages[selectedNote.slug] || 'og-writing';
+
+    const currentIndex = FIELD_NOTES.findIndex((n) => n.slug === selectedNote.slug);
+    const nextNote = currentIndex >= 0 && currentIndex < FIELD_NOTES.length - 1
+      ? FIELD_NOTES[currentIndex + 1]
+      : FIELD_NOTES[0];
+
     return (
       <article className="max-w-2xl mx-auto space-y-12 py-8">
         
@@ -85,6 +98,22 @@ export const FieldNotesView: React.FC<FieldNotesViewProps> = ({ selectedNoteSlug
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Link Copied' : 'Share Note'}</span>
             </button>
+          </div>
+
+          {/* Editorial Article Cover Banner */}
+          <div className="pt-4 rounded-2xl overflow-hidden">
+            <picture>
+              <source srcSet={`/og/${imageBase}.webp`} type="image/webp" />
+              <img
+                src={`/og/${imageBase}.jpg`}
+                alt={`Architectural editorial diagram for ${selectedNote.title}`}
+                width={1200}
+                height={630}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-auto object-cover aspect-[1200/630] rounded-xl border border-neutral-200 dark:border-neutral-800"
+              />
+            </picture>
           </div>
         </header>
 
@@ -167,6 +196,22 @@ export const FieldNotesView: React.FC<FieldNotesViewProps> = ({ selectedNoteSlug
             subtitle="Builds, empirical experiments, milestones, and foundational principles cross-referenced with this note."
           />
         </footer>
+
+        {/* Sticky Mobile Action - Read Next Note */}
+        {nextNote && nextNote.slug !== selectedNote.slug && (
+          <StickyMobileCta
+            id="sticky-mobile-read-next"
+            label="Read next field note"
+            actionText={`Read Next: ${nextNote.title}`}
+            hintText={`${nextNote.readingTime} • Field Notes`}
+            icon={<BookOpen className="w-4 h-4" aria-hidden="true" />}
+            onAction={() => {
+              onNavigate('notes', nextNote.slug);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            storageKey={`note_${selectedNote.slug}`}
+          />
+        )}
 
       </article>
     );

@@ -1,11 +1,12 @@
 import React from 'react';
 import { PageRoute } from '../types';
 import { PROJECTS } from '../data/content';
-import { ArrowRight, ArrowLeft, Terminal, AlertCircle, Share2 } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Terminal, AlertCircle, Share2, MessageSquare } from 'lucide-react';
 import { ConnectedArchiveSection } from '../components/ConnectedArchiveSection';
 import { getConnectedArchiveContext } from '../data/archiveGraph';
 import { Breadcrumb } from '../components/Breadcrumb';
 import { EvidenceBadge } from '../components/EvidenceBadge';
+import { StickyMobileCta } from '../components/StickyMobileCta';
 
 interface BuildsViewProps {
   selectedProjectId?: string;
@@ -78,6 +79,22 @@ export const BuildsView: React.FC<BuildsViewProps> = ({ selectedProjectId, onNav
             <p className="leading-relaxed">
               This build is currently in the conceptual domain-modeling and state-machine design phase. All architectures and diagrams documented below represent structural hypotheses formulated to guide future pilot implementations, not a live production deployment.
             </p>
+          </div>
+
+          {/* Architectural System Blueprint */}
+          <div className="mt-6 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 shadow-xs">
+            <picture>
+              <source srcSet="/og/og-project-tatashi-market.webp" type="image/webp" />
+              <img
+                src="/og/og-project-tatashi-market.jpg"
+                alt="Tatashi Market cross-border verification architecture blueprint and lifecycle statechart"
+                width={1200}
+                height={630}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-auto object-cover aspect-[1200/630]"
+              />
+            </picture>
           </div>
         </header>
 
@@ -164,7 +181,7 @@ export const BuildsView: React.FC<BuildsViewProps> = ({ selectedProjectId, onNav
             <div className="relative pl-5 sm:pl-6 border-l border-neutral-200 dark:border-neutral-800 space-y-6 ml-3 sm:ml-1">
               {selectedProject.timeline.map((item, idx) => (
                 <div key={idx} className="relative">
-                  <div className="absolute -left-[25px] sm:-left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-neutral-400 dark:bg-neutral-600" />
+                  <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-400 dark:bg-neutral-600" />
                   <div className="space-y-1">
                     <span className="text-xs font-mono-code text-neutral-400">
                       {item.date}
@@ -191,6 +208,19 @@ export const BuildsView: React.FC<BuildsViewProps> = ({ selectedProjectId, onNav
           />
 
         </div>
+
+        {/* Sticky Mobile Action - Direct task completion for mobile visitors */}
+        <StickyMobileCta
+          id="sticky-mobile-build-contact"
+          label="Discuss build architecture"
+          actionText={`Discuss ${selectedProject.title} Architecture`}
+          hintText="Direct correspondence with Eddi Prince"
+          icon={<MessageSquare className="w-4 h-4" aria-hidden="true" />}
+          onAction={() => {
+            onNavigate('contact');
+          }}
+          storageKey={`project_${selectedProject.id}`}
+        />
       </div>
     );
   }

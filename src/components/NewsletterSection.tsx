@@ -8,6 +8,15 @@ export const NewsletterSection: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes('@')) return;
+    try {
+      const subs = JSON.parse(localStorage.getItem('eddiprince_subscribers') || '[]');
+      if (!subs.includes(email)) {
+        subs.push(email);
+        localStorage.setItem('eddiprince_subscribers', JSON.stringify(subs));
+      }
+    } catch {
+      // Graceful fallback
+    }
     setStatus('success');
   };
 
@@ -28,13 +37,21 @@ export const NewsletterSection: React.FC = () => {
         </p>
 
         {status === 'success' ? (
-          <div className="pt-4 flex items-center justify-center gap-2 text-sm font-mono-code text-emerald-600 dark:text-emerald-400">
+          <div
+            role="status"
+            aria-live="polite"
+            className="pt-4 flex items-center justify-center gap-2 text-sm font-mono-code text-emerald-600 dark:text-emerald-400"
+          >
             <Check className="w-4 h-4" />
             <span>You're subscribed. Welcome to the build log.</span>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 max-w-md mx-auto w-full">
+            <label htmlFor="newsletter-email" className="sr-only">
+              Email address for periodic build log dispatches
+            </label>
             <input
+              id="newsletter-email"
               type="email"
               required
               value={email}
@@ -53,7 +70,7 @@ export const NewsletterSection: React.FC = () => {
         )}
 
         <p className="text-[11px] font-mono-code text-neutral-500 pt-1 leading-normal break-words">
-          Delivered directly from eddi@eddiprince.com • Unsubscribe anytime with one click.
+          Delivered directly from davidabbahinnocent@gmail.com • Unsubscribe anytime with one click.
         </p>
       </div>
     </section>

@@ -97,7 +97,7 @@ The digital archive revolves around seven core connected entities:
 - Keyboard navigation (Arrow keys + Enter), categorized badges, and instant jumping.
 
 ### 4.10 Direct Communication & Contact Modal
-- Quick copy email (`eddi@eddiprince.com`).
+- Quick copy email (`davidabbahinnocent@gmail.com`).
 - Direct message dispatch interface with topic selection (Collaboration, Architecture, General Inquiry).
 
 ---

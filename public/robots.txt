@@ -1,0 +1,5 @@
+# robots.txt for eddiprince.com
+User-agent: *
+Allow: /
+
+Sitemap: https://eddiprince.com/sitemap.xml

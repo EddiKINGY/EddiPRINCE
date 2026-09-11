@@ -18,7 +18,7 @@ export const EvidenceBadge: React.FC<EvidenceBadgeProps> = ({
   return (
     <span
       title={showTooltip ? meta.description : undefined}
-      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border text-[11px] font-mono-code font-medium tracking-wide uppercase ${meta.badgeClass} ${className}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border text-[11px] font-mono-code font-medium tracking-wide uppercase whitespace-nowrap ${meta.badgeClass} ${className}`}
     >
       <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70" />
       <span>{meta.shortLabel}</span>

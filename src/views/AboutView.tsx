@@ -34,6 +34,22 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenContact 
         </p>
       </div>
 
+      {/* Identity & Foundations Overview Banner */}
+      <div className="rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 shadow-xs">
+        <picture>
+          <source srcSet="/og/og-about.webp" type="image/webp" />
+          <img
+            src="/og/og-about.jpg"
+            alt="Eddi Prince operating principles and day-zero foundations overview"
+            width={1200}
+            height={630}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-auto object-cover aspect-[1200/630]"
+          />
+        </picture>
+      </div>
+
       {/* WHO I AM */}
       <section className="space-y-4">
         <h2 className="text-xs font-mono-code uppercase tracking-widest text-neutral-400 font-semibold">

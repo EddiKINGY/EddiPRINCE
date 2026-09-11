@@ -4,27 +4,40 @@ export type PageRoute =
   | 'builds' 
   | 'lab' 
   | 'notes' 
+  | 'writing'
   | 'journey' 
   | 'now' 
   | 'resources'
+  | 'contact'
+  | 'privacy'
+  | 'terms'
+  | 'trust'
+  | 'not-found'
   | 'build-detail'
   | 'note-detail'
   | 'lab-detail';
 
 /**
  * TRUTH & EVIDENCE MODEL
- * Distinctly classifies the epistemic status of all artifacts across the archive.
- * Guarantees that conceptual models, hypotheses, or planned work are never presented as completed evidence.
+ * Distinctly classifies the epistemic status of all artifacts across the archive:
+ * IDEA | PLANNED | IN_PROGRESS | PROTOTYPE | PRIVATE_TEST | SHIPPED | MEASURED | VERIFIED
+ * Guarantees that conceptual models, hypotheses, or planned work are never presented as completed outcomes.
  */
 export type EvidenceLevel =
   | 'IDEA'              // Conceptual exploration or philosophical thesis
-  | 'HYPOTHESIS'        // Formally stated proposition awaiting testing
-  | 'PLANNED'           // Scoped testing protocol; benchmark execution not yet performed
+  | 'PLANNED'           // Scoped protocol or planned inquiry; not yet executed
   | 'IN_PROGRESS'       // Active architecture spike or ongoing inquiry
-  | 'OBSERVATION'       // Secondary research, qualitative interview, or field observation
-  | 'PROTOTYPE_SPIKE'   // Isolated exploratory code prototype (not in production)
-  | 'VALIDATED'         // Empirically tested with verifiable, reproducible results
-  | 'REFUTED';          // Hypothesis formally disproven by testing
+  | 'PROTOTYPE'         // Working code prototype in testbench or client
+  | 'PRIVATE_TEST'      // Scoped local testbench or internal evaluation
+  | 'SHIPPED'           // Publicly released and functional
+  | 'MEASURED'          // Formally quantified with reproducible metrics
+  | 'VERIFIED'          // Independently corroborated or audited
+  | 'REFUTED'           // Formally tested and disproven
+  // Aliases for backwards compatibility:
+  | 'HYPOTHESIS'
+  | 'PROTOTYPE_SPIKE'
+  | 'OBSERVATION'
+  | 'VALIDATED';
 
 export interface EvidenceBasis {
   level: EvidenceLevel;

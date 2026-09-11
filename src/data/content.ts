@@ -75,7 +75,7 @@ export const PROJECTS: Project[] = [
     tagline: 'Cross-border digital commerce & verification protocol for emerging merchant networks.',
     shortDescription: 'An early-stage commerce infrastructure project exploring verified merchant identity, localized escrow settlement, and structured inventory discovery.',
     status: 'Early Development',
-    evidenceLevel: 'HYPOTHESIS',
+    evidenceLevel: 'PLANNED',
     category: 'Marketplace & Commerce',
     dateStarted: 'September 2026',
     problem: 'Cross-border commerce across emerging markets suffers from persistent trust deficits: informal WhatsApp-based trade lacks escrow protections, supplier identities are unverifiable before payment, and cross-currency settlement incurs predatory exchange fees.',
@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
       {
         date: 'August 2026',
         title: 'Problem Framing & Informal Trade Mapping',
-        notes: 'Formulated initial problem hypotheses based on secondary research and observation of informal WhatsApp/agent trade corridors. Direct merchant discovery interviews planned.'
+        notes: 'Formulated initial problem hypotheses based on secondary trade literature and informal corridor mapping. Qualitative merchant discovery research planned.'
       },
       {
         date: 'September 2026',
@@ -110,8 +110,8 @@ export const PROJECTS: Project[] = [
       },
       {
         date: 'Upcoming',
-        title: 'Interactive Supplier Verification Prototype',
-        notes: 'Scoping the initial mobile-first verification onboarding flow for pilot merchant testing.'
+        title: 'Supplier Verification Wireframe Prototype',
+        notes: 'Scoping a conceptual mobile-first onboarding wireframe.'
       }
     ],
     relatedFieldNotes: ['deconstructing-tatashi-market', 'the-zero-state'],
@@ -135,8 +135,8 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
     hypothesis: 'Can small-footprint language models reliably parse irregular multi-currency paper receipts into strict TypeScript schemas without custom fine-tuning?',
     evidenceLevel: 'PLANNED',
     objective: 'Formulate a reproducible testing protocol to evaluate whether micro-merchants could digitize paper manifests using smartphone photos instead of manual ledger entry.',
-    process: 'Planned Protocol: Compile a standardized evaluation set of ~50 diverse paper receipts (printed thermal paper, handwritten tallies, multi-currency invoices) and benchmark field extraction accuracy across zero-shot prompts with structured JSON schema outputs.',
-    result: 'Protocol & schema defined. Benchmark execution is planned pending dataset compilation.',
+    process: 'Planned Protocol: Define evaluation criteria for paper receipts (printed thermal paper, handwritten tallies, multi-currency invoices) and specify structured JSON schema outputs for future testing.',
+    result: 'Protocol & schema defined. Empirical benchmarking has not yet been executed and is planned for a future testing phase.',
     lesson: 'Core architectural hypothesis: Probabilistic extraction must always terminate in an explicit human-in-the-loop review step for accounting records rather than committing directly to a ledger.',
     status: 'PLANNED',
     date: 'August 2026',
@@ -152,10 +152,10 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
     slug: 'client-side-instant-search-index',
     title: 'In-Memory Token Indexing for Zero-Latency Archive Retrieval',
     hypothesis: 'For personal sites and digital archives under 15,000 items, client-side normalized keyword indexing provides faster perceived retrieval (<10ms) than external cloud search APIs at zero hosting cost.',
-    evidenceLevel: 'PROTOTYPE_SPIKE',
+    evidenceLevel: 'PROTOTYPE',
     objective: 'Evaluate latency, payload overhead, and search accuracy for eddiprince.com.',
     process: 'Constructed an in-memory normalized keyword index supporting prefix search, category weights, and multi-entity cross-referencing directly in the browser runtime.',
-    result: 'Active in this application. Powers the global Cmd+K search modal with instant response times across the local archive graph.',
+    result: 'Active in this application. Powers the global Cmd+K search modal across the local archive graph.',
     lesson: 'Resist the urge to deploy serverless search clusters when client-side data structures completely solve the problem with superior UX.',
     status: 'IN PROGRESS',
     date: 'September 2026',
@@ -169,12 +169,12 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
     slug: 'offline-first-merchant-ledger',
     title: 'Local-First State Synchronization for Unstable Mobile Networks',
     hypothesis: 'Using IndexedDB with an append-only transaction log and logical sequence IDs allows market sellers to log sales with zero connectivity and reconcile deterministically when online.',
-    evidenceLevel: 'HYPOTHESIS',
+    evidenceLevel: 'PLANNED',
     objective: 'Explore architectural patterns to prevent transaction data loss during frequent network blackouts in commercial open-air markets.',
     process: 'Architectural exploration of local-first state machines and sequence vector logs for basic conflict resolution.',
-    result: 'Conceptual design drafted. Isolated testbench implementation planned.',
+    result: 'Conceptual design drafted. Isolated testbench implementation has not yet been executed; testing planned.',
     lesson: 'Timestamp-based conflict resolution fails under mobile clock drift; monotonic sequence IDs are required.',
-    status: 'EXPLORING',
+    status: 'PLANNED',
     date: 'September 2026',
     relatedProject: 'tatashi-market',
     relatedNotes: ['deconstructing-tatashi-market'],
@@ -190,7 +190,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
     evidenceLevel: 'REFUTED',
     objective: 'Analyze whether digital assets can be distributed with access control without maintaining a persistent server.',
     process: 'Theoretical modeling and security boundary analysis of client-side JavaScript execution.',
-    result: 'Hypothesis disproven. Client-side execution in a browser is inherently inspectable and bypassable via standard developer tools; code running on the client cannot securely police itself.',
+    result: 'Hypothesis disproven via security boundary analysis. Client-side execution in a browser is inherently inspectable and bypassable via standard developer tools; code running on the client cannot securely police itself without an authoritative server.',
     lesson: 'Client-side DRM is security theater. If access restrictions matter, verification must live on an authoritative backend; otherwise, rely on trust or open distribution.',
     status: 'REFUTED',
     date: 'July 2026',
@@ -320,7 +320,7 @@ export const FIELD_NOTES: FieldNote[] = [
       '- "Quiz me on how distributed consensus handles network partitions until I can defend every choice."',
       '### Compounding Architectural Taste',
       'Taste is the ability to recognize elegance, economy, and robustness before execution begins. It cannot be downloaded; it is forged by comparing bad ideas to better ones.',
-      'By using AI models to rapidly generate counter-arguments, simulate failure scenarios, and walk through unfamiliar domain landscapes, my learning velocity has increased tenfold. Not because the AI writes the future for me, but because it accelerates the speed at which I can test my own understanding.'
+      'By using AI models to rapidly generate counter-arguments, simulate failure scenarios, and walk through unfamiliar domain landscapes, my learning velocity has noticeably accelerated. Not because the AI writes the future for me, but because it accelerates the speed at which I can test my own understanding.'
     ],
     relatedProjects: ['tatashi-market'],
     relatedArticles: ['the-zero-state'],
@@ -337,7 +337,7 @@ export const JOURNEY_MILESTONES: JourneyMilestone[] = [
     formattedMonth: 'September 2026',
     title: 'Started EddiPRINCE.com — The Digital Headquarters',
     type: 'project_started',
-    evidenceLevel: 'PROTOTYPE_SPIKE',
+    evidenceLevel: 'PROTOTYPE',
     description: 'Launched the personal digital headquarters at eddiprince.com to anchor my identity, projects, experiments, and writing as I build from scratch.',
     context: 'Built with a commitment to zero synthetic prestige, meticulous typography, and complete public accountability.',
     relatedNotes: ['the-zero-state'],
@@ -350,7 +350,7 @@ export const JOURNEY_MILESTONES: JourneyMilestone[] = [
     formattedMonth: 'September 2026',
     title: 'Formalized Tatashi Market Architecture Spec',
     type: 'breakthrough',
-    evidenceLevel: 'HYPOTHESIS',
+    evidenceLevel: 'PLANNED',
     description: 'Decomposed the core entities for cross-border trade verification: MerchantProfile, VerificationTier, EscrowOrder, and DisputeLog.',
     context: 'Transitioned from informal notebook scribbles to formal domain modeling and state machine charts.',
     relatedProjects: ['tatashi-market'],
@@ -445,7 +445,7 @@ export const NOW_DATA: NowData = {
   next: [
     'Complete the interactive supplier onboarding wireframe prototype for Tatashi Market.',
     'Publish Field Note #004 on statecharts in financial workflows.',
-    'Begin field interviews with two cross-border logistics forwarding agents.'
+    'Formulate discovery questions for cross-border logistics research.'
   ]
 };
 

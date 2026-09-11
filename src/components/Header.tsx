@@ -33,6 +33,7 @@ export const Header: React.FC<HeaderProps> = ({
     { label: 'Now (/now)', page: 'now', hint: 'Active Sprint & Bandwidth' },
     { label: 'About', page: 'about', hint: 'Philosophy & Operating Principles' },
     { label: 'Resources', page: 'resources', hint: 'Curated Reading & Tools' },
+    { label: 'Trust & Colophon', page: 'trust', hint: 'Zero Synthetic Prestige Protocol' },
   ];
 
   const primaryNavItems: { label: string; page: PageRoute }[] = [
@@ -123,6 +124,7 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
             aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-drawer-menu"
             className="md:hidden flex items-center justify-center min-h-[44px] min-w-[44px] text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white rounded-lg hover:bg-neutral-200/50 dark:hover:bg-neutral-800 transition-colors"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
 import { ContactModal } from './components/ContactModal';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { HomeView } from './views/HomeView';
 import { AboutView } from './views/AboutView';
 import { BuildsView } from './views/BuildsView';
@@ -12,22 +13,49 @@ import { FieldNotesView } from './views/FieldNotesView';
 import { JourneyView } from './views/JourneyView';
 import { NowView } from './views/NowView';
 import { ResourcesView } from './views/ResourcesView';
+import { TrustView } from './views/TrustView';
+import { NotFoundView } from './views/NotFoundView';
+import { ContactView } from './views/ContactView';
+import { getRouteSeo, applySeoMeta } from './utils/seo';
 
 export default function App() {
   const parseRouteFromLocation = (): { page: PageRoute; itemId?: string } => {
     if (typeof window === 'undefined') return { page: 'home' };
     const hash = window.location.hash.replace(/^#\/?/, '');
-    if (!hash) return { page: 'home' };
+    const pathname = window.location.pathname.replace(/^\//, '');
+    let routeStr = hash;
+    if (!routeStr && pathname && pathname !== 'index.html') {
+      routeStr = pathname;
+    }
+    if (!routeStr) return { page: 'home' };
 
-    const parts = hash.split('/');
-    const pageKey = parts[0] as PageRoute;
+    const parts = routeStr.split('/');
+    let pageKey = parts[0] as PageRoute;
     const itemId = parts[1] || undefined;
 
-    const validPages: PageRoute[] = ['home', 'about', 'builds', 'build-detail', 'lab', 'lab-detail', 'notes', 'note-detail', 'journey', 'now', 'resources'];
+    const validPages: PageRoute[] = [
+      'home',
+      'about',
+      'builds',
+      'build-detail',
+      'lab',
+      'lab-detail',
+      'notes',
+      'writing',
+      'note-detail',
+      'journey',
+      'now',
+      'resources',
+      'contact',
+      'privacy',
+      'terms',
+      'trust',
+      'not-found',
+    ];
     if (validPages.includes(pageKey)) {
       return { page: pageKey, itemId };
     }
-    return { page: 'home' };
+    return { page: 'not-found' };
   };
 
   const initialRoute = parseRouteFromLocation();
@@ -89,37 +117,10 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Update page title dynamically for SEO and UX
+  // Update route-specific SEO metadata dynamically
   useEffect(() => {
-    const baseTitle = 'EddiPRINCE — Building My Future From Scratch';
-    switch (currentPage) {
-      case 'home':
-        document.title = baseTitle;
-        break;
-      case 'about':
-        document.title = 'About & Foundations — EddiPRINCE';
-        break;
-      case 'builds':
-        document.title = selectedItemId ? `${selectedItemId} — Builds | EddiPRINCE` : 'Builds & Projects — EddiPRINCE';
-        break;
-      case 'lab':
-        document.title = 'The Lab: Hypotheses & Experiments — EddiPRINCE';
-        break;
-      case 'notes':
-        document.title = selectedItemId ? `${selectedItemId} — Field Notes | EddiPRINCE` : 'Field Notes — EddiPRINCE';
-        break;
-      case 'journey':
-        document.title = 'The Journey: Timeline from Zero — EddiPRINCE';
-        break;
-      case 'now':
-        document.title = 'What I’m Doing Now (/now) — EddiPRINCE';
-        break;
-      case 'resources':
-        document.title = 'Curated Resources — EddiPRINCE';
-        break;
-      default:
-        document.title = baseTitle;
-    }
+    const seo = getRouteSeo(currentPage, selectedItemId);
+    applySeoMeta(seo);
   }, [currentPage, selectedItemId]);
 
   const handleNavigate = (page: PageRoute, itemId?: string) => {
@@ -143,6 +144,14 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FBFBFA] dark:bg-[#0E0F12] text-neutral-900 dark:text-neutral-100 transition-colors duration-200 overflow-x-hidden w-full">
       
+      {/* Accessible Skip to Content Link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-neutral-900 focus:text-white dark:focus:bg-white dark:focus:text-neutral-950 focus:rounded-xl focus:shadow-xl focus:font-mono-code focus:text-xs focus:ring-2 focus:ring-emerald-500"
+      >
+        Skip to main content
+      </a>
+
       {/* Top Header Navigation */}
       <Header
         currentPage={currentPage}
@@ -153,54 +162,74 @@ export default function App() {
         onToggleTheme={toggleTheme}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-3.5 sm:px-6 min-w-0">
-        {currentPage === 'home' && (
-          <HomeView
-            onNavigate={handleNavigate}
-            onOpenContact={() => setIsContactOpen(true)}
-          />
-        )}
+      {/* Main Content Area guarded by ErrorBoundary */}
+      <main id="main-content" className="flex-1 max-w-6xl w-full mx-auto px-3.5 sm:px-6 min-w-0 pb-16 md:pb-8">
+        <ErrorBoundary>
+          {currentPage === 'home' && (
+            <HomeView
+              onNavigate={handleNavigate}
+              onOpenContact={() => setIsContactOpen(true)}
+            />
+          )}
 
-        {currentPage === 'about' && (
-          <AboutView
-            onNavigate={handleNavigate}
-            onOpenContact={() => setIsContactOpen(true)}
-          />
-        )}
+          {currentPage === 'about' && (
+            <AboutView
+              onNavigate={handleNavigate}
+              onOpenContact={() => setIsContactOpen(true)}
+            />
+          )}
 
-        {(currentPage === 'builds' || currentPage === 'build-detail') && (
-          <BuildsView
-            selectedProjectId={selectedItemId}
-            onNavigate={handleNavigate}
-          />
-        )}
+          {(currentPage === 'builds' || currentPage === 'build-detail') && (
+            <BuildsView
+              selectedProjectId={selectedItemId}
+              onNavigate={handleNavigate}
+            />
+          )}
 
-        {(currentPage === 'lab' || currentPage === 'lab-detail') && (
-          <LabView
-            selectedExperimentId={selectedItemId}
-            onNavigate={handleNavigate}
-          />
-        )}
+          {(currentPage === 'lab' || currentPage === 'lab-detail') && (
+            <LabView
+              selectedExperimentId={selectedItemId}
+              onNavigate={handleNavigate}
+            />
+          )}
 
-        {(currentPage === 'notes' || currentPage === 'note-detail') && (
-          <FieldNotesView
-            selectedNoteSlug={selectedItemId}
-            onNavigate={handleNavigate}
-          />
-        )}
+          {(currentPage === 'notes' || currentPage === 'writing' || currentPage === 'note-detail') && (
+            <FieldNotesView
+              selectedNoteSlug={selectedItemId}
+              onNavigate={handleNavigate}
+            />
+          )}
 
-        {currentPage === 'journey' && (
-          <JourneyView onNavigate={handleNavigate} />
-        )}
+          {currentPage === 'contact' && (
+            <ContactView onNavigate={handleNavigate} />
+          )}
 
-        {currentPage === 'now' && (
-          <NowView onNavigate={handleNavigate} />
-        )}
+          {currentPage === 'journey' && (
+            <JourneyView onNavigate={handleNavigate} />
+          )}
 
-        {currentPage === 'resources' && (
-          <ResourcesView onNavigate={handleNavigate} />
-        )}
+          {currentPage === 'now' && (
+            <NowView onNavigate={handleNavigate} />
+          )}
+
+          {currentPage === 'resources' && (
+            <ResourcesView onNavigate={handleNavigate} />
+          )}
+
+          {(currentPage === 'trust' || currentPage === 'privacy' || currentPage === 'terms') && (
+            <TrustView
+              onNavigate={handleNavigate}
+              onOpenContact={() => setIsContactOpen(true)}
+            />
+          )}
+
+          {currentPage === 'not-found' && (
+            <NotFoundView
+              onNavigate={handleNavigate}
+              onOpenSearch={() => setIsSearchOpen(true)}
+            />
+          )}
+        </ErrorBoundary>
       </main>
 
       {/* Understated Editorial Footer */}
