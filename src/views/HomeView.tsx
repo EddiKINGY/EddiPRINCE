@@ -3,6 +3,7 @@ import { PageRoute } from '../types';
 import { CURRENTLY, PROJECTS, FIELD_NOTES, JOURNEY_MILESTONES, BELIEFS } from '../data/content';
 import { NewsletterSection } from '../components/NewsletterSection';
 import { EvidenceBadge } from '../components/EvidenceBadge';
+import { ProgressiveDisclosureCard } from '../components/ProgressiveDisclosureCard';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -80,7 +81,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenContact })
               </p>
 
               <p className="text-sm sm:text-base md:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl font-sans-body">
-                This site is my living digital archive and public headquarters. I formulate cross-border commerce protocols, build resilient software systems, and document real founder progress in public — without synthetic prestige or vanity metrics.
+                Personal digital headquarters and public archive. Documenting software architectures, day-zero learning and sharing, commerce systems from scratch, exploring technology, AI, and systems from the ground up.
               </p>
             </div>
 
@@ -307,88 +308,71 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenContact })
           </button>
         </div>
 
-        {/* The 80/20 Flagship Card: Tatashi Market */}
+        {/* The 80/20 Flagship Card: Progressive Disclosure Card */}
         {featuredProject && (
-          <div className="p-4 sm:p-6 md:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-[#121418]/50 space-y-5 sm:space-y-6">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono-code text-neutral-500">Flagship Build 01</span>
-                  <EvidenceBadge level={featuredProject.evidenceLevel || 'HYPOTHESIS'} />
+          <ProgressiveDisclosureCard
+            id="home-featured-flagship"
+            level1={{
+              title: featuredProject.title,
+              summary: featuredProject.tagline,
+              state: {
+                label: 'Flagship Build 01 • Early Development',
+                badgeClass: 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300',
+                evidenceLevel: featuredProject.evidenceLevel || 'HYPOTHESIS',
+              },
+              primaryAction: {
+                label: 'Read Full Architecture Specification',
+                onClick: () => onNavigate('builds', featuredProject.id),
+                ariaLabel: `Read architecture specification for ${featuredProject.title}`,
+              },
+            }}
+            level2={{
+              tags: featuredProject.technologies,
+              metadata: [
+                { label: 'Initiated', value: featuredProject.dateStarted },
+                { label: 'Domain', value: featuredProject.category },
+                { label: 'Current Phase', value: featuredProject.currentStage },
+              ],
+              relatedWorkCount: 2,
+              relatedWorkLabel: 'Connected essays & experiments',
+            }}
+            level3={{
+              methodology: 'Domain-driven design and finite state machine formalization prior to writing code. Focuses on escrow settlement mechanics and fraud reduction under low-bandwidth internet environments.',
+              technicalDetails: (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="p-3 rounded-lg bg-white/70 dark:bg-neutral-800/60 border border-neutral-200/60 dark:border-neutral-700/60 space-y-1">
+                      <span className="text-[11px] font-mono-code uppercase text-neutral-500 font-semibold block">
+                        Real-World Friction
+                      </span>
+                      <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                        {featuredProject.problem}
+                      </p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-white/70 dark:bg-neutral-800/60 border border-neutral-200/60 dark:border-neutral-700/60 space-y-1">
+                      <span className="text-[11px] font-mono-code uppercase text-neutral-500 font-semibold block">
+                        Architectural Thesis
+                      </span>
+                      <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                        {featuredProject.vision}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-neutral-900 dark:text-neutral-50 break-words">
-                  {featuredProject.title}
-                </h3>
-              </div>
-
-              <span className="text-xs font-mono-code text-neutral-400">
-                Initiated {featuredProject.dateStarted}
-              </span>
-            </div>
-
-            <p className="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl">
-              {featuredProject.tagline}
-            </p>
-
-            {/* Architectural Blueprint Preview */}
-            <div className="rounded-xl overflow-hidden border border-neutral-200/80 dark:border-neutral-800/80 shadow-xs">
-              <picture>
-                <source srcSet="/og/og-project-tatashi-market.webp" type="image/webp" />
-                <img
-                  src="/og/og-project-tatashi-market.jpg"
-                  alt="Tatashi Market cross-border verification architecture blueprint and lifecycle statechart"
-                  width={1200}
-                  height={630}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-auto object-cover aspect-[1200/630]"
-                />
-              </picture>
-            </div>
-
-            {/* Friction vs Architecture decomposition */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-6 pt-1 text-sm">
-              <div className="space-y-1.5 p-3.5 sm:p-4 rounded-xl bg-white/60 dark:bg-neutral-900/60 border border-neutral-200/60 dark:border-neutral-800/60">
-                <span className="text-xs font-mono-code uppercase tracking-wider text-neutral-500 font-semibold">
-                  The Real-World Friction
-                </span>
-                <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-xs sm:text-sm">
-                  {featuredProject.problem}
-                </p>
-              </div>
-
-              <div className="space-y-1.5 p-3.5 sm:p-4 rounded-xl bg-white/60 dark:bg-neutral-900/60 border border-neutral-200/60 dark:border-neutral-800/60">
-                <span className="text-xs font-mono-code uppercase tracking-wider text-neutral-500 font-semibold">
-                  Architectural Thesis & Vision
-                </span>
-                <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-xs sm:text-sm">
-                  {featuredProject.vision}
-                </p>
-              </div>
-            </div>
-
-            {/* Tech Stack & Navigation (Fitts's Law generous CTA) */}
-            <div className="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-neutral-200/80 dark:border-neutral-800/80">
-              <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                {featuredProject.technologies.slice(0, 5).map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2.5 py-1 text-[11px] sm:text-xs font-mono-code bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 rounded"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <button
-                onClick={() => onNavigate('builds', featuredProject.id)}
-                className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center sm:justify-start gap-2 text-sm font-medium text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-4 py-1.5 px-3 rounded-lg border border-neutral-300 dark:border-neutral-700 sm:border-0 active:scale-[0.99] transition-all"
-              >
-                <span>Read complete architecture case study</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
+              ),
+              evidenceNotes: 'Pre-code domain specification. All diagrams and contracts represent working architectural hypotheses intended to de-risk capital and operational commitments.',
+              archiveLinks: [
+                {
+                  label: 'Field Note: Architectural Foundations',
+                  onClick: () => onNavigate('notes', 'architectural-foundations'),
+                },
+                {
+                  label: 'Lab Experiment: Offline Sync Spike',
+                  onClick: () => onNavigate('lab', 'exp-01-sqlite-wasm'),
+                },
+              ],
+            }}
+          />
         )}
 
         {/* Secondary Builds (Compact preview of remaining systems) */}

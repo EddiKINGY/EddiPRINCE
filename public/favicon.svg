@@ -1,21 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
   <style>
+    :root {
+      --bg: #FBFBFA;
+      --border: #E5E5E5;
+      --text: #191919;
+      --accent: #059669;
+    }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0E0F12; }
-      .border { stroke: #262626; }
-      .text { fill: #E8E9ED; }
-      .accent { fill: #10B981; }
+      :root {
+        --bg: #0E0F12;
+        --border: #27272A;
+        --text: #F4F4F5;
+        --accent: #10B981;
+      }
     }
-    @media (prefers-color-scheme: light) {
-      .bg { fill: #FBFBFA; }
-      .border { stroke: #E5E5E5; }
-      .text { fill: #191919; }
-      .accent { fill: #059669; }
-    }
+    .bg { fill: var(--bg); }
+    .border { stroke: var(--border); }
+    .text { fill: var(--text); }
+    .accent { fill: var(--accent); }
   </style>
   <rect class="bg" width="32" height="32" rx="7" />
   <rect class="border" x="0.5" y="0.5" width="31" height="31" rx="6.5" fill="none" stroke-width="1" />
-  <text class="text" x="7" y="21" font-family="'Instrument Serif', Georgia, serif" font-size="16" font-weight="600">E</text>
-  <text class="text" x="17" y="21" font-family="'Instrument Serif', Georgia, serif" font-size="16" font-weight="400">P</text>
-  <circle class="accent" cx="26" cy="19" r="1.5" />
+  <text class="text" x="7" y="21.5" font-family="'Instrument Serif', Georgia, 'Times New Roman', serif" font-size="16" font-weight="600">E</text>
+  <text class="text" x="16.5" y="21.5" font-family="'Instrument Serif', Georgia, 'Times New Roman', serif" font-size="16" font-weight="400">P</text>
+  <circle class="accent" cx="25.5" cy="19" r="1.5" />
 </svg>

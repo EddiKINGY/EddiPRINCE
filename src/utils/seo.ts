@@ -282,18 +282,34 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
       };
 
     case 'terms':
-    case 'trust':
       return {
-        title: 'Terms & Colophon — Eddi Prince',
-        description: 'Open source licensing, operating standards, technical colophon, and usage terms for eddiprince.com.',
+        title: 'Terms of Use — Eddi Prince',
+        description: 'Professional usage conditions and intellectual property disclosures for EddiPRINCE.com and upcoming software builds.',
         canonical: `${BASE_URL}/terms`,
-        ogTitle: 'Terms & Colophon — Eddi Prince',
-        ogDescription: 'Open source licensing, operating standards, technical colophon, and usage terms for eddiprince.com.',
+        ogTitle: 'Terms of Use — Eddi Prince',
+        ogDescription: 'Professional usage conditions and intellectual property disclosures for EddiPRINCE.com and upcoming software builds.',
         ogUrl: `${BASE_URL}/terms`,
         ogImage: DEFAULT_OG_IMAGE,
-        ogImageAlt: 'Terms & Colophon — Eddi Prince',
-        twitterTitle: 'Terms & Colophon — Eddi Prince',
-        twitterDescription: 'Open source licensing, operating standards, technical colophon, and usage terms for eddiprince.com.',
+        ogImageAlt: 'Terms of Use — Eddi Prince',
+        twitterTitle: 'Terms of Use — Eddi Prince',
+        twitterDescription: 'Professional usage conditions and intellectual property disclosures for EddiPRINCE.com and upcoming software builds.',
+        twitterImage: DEFAULT_OG_IMAGE,
+        twitterCard: 'summary',
+        author: DEFAULT_AUTHOR,
+      };
+
+    case 'trust':
+      return {
+        title: 'Trust & Operating Standards — Eddi Prince',
+        description: 'Open source licensing, operating standards, technical colophon, and epistemic benchmarks for eddiprince.com.',
+        canonical: `${BASE_URL}/trust`,
+        ogTitle: 'Trust & Operating Standards — Eddi Prince',
+        ogDescription: 'Open source licensing, operating standards, technical colophon, and epistemic benchmarks for eddiprince.com.',
+        ogUrl: `${BASE_URL}/trust`,
+        ogImage: DEFAULT_OG_IMAGE,
+        ogImageAlt: 'Trust & Operating Standards — Eddi Prince',
+        twitterTitle: 'Trust & Operating Standards — Eddi Prince',
+        twitterDescription: 'Open source licensing, operating standards, technical colophon, and epistemic benchmarks for eddiprince.com.',
         twitterImage: DEFAULT_OG_IMAGE,
         twitterCard: 'summary',
         author: DEFAULT_AUTHOR,

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { performGlobalSearch } from '../data/content';
 import { SearchResult, PageRoute } from '../types';
 import { Search, X, ArrowRight, CornerDownLeft, Sparkles, BookOpen, Layers, Terminal, Compass, Bookmark } from 'lucide-react';
+import { analytics } from '../services';
+
 
 interface GlobalSearchModalProps {
   isOpen: boolean;
@@ -68,6 +70,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   }, [isOpen, results, selectedIndex]);
 
   const handleSelect = (item: SearchResult) => {
+    analytics.trackSearch(query.trim().length, results.length, item.type);
     onNavigate(item.targetPage, item.targetId);
     onClose();
   };

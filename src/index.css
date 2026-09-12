@@ -11,6 +11,8 @@
 
   body {
     font-family: var(--font-sans);
+    line-height: 1.65;
+    font-size: 1rem;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -79,5 +81,16 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@keyframes routeProgress {
+  0% { transform: scaleX(0); }
+  60% { transform: scaleX(0.75); }
+  100% { transform: scaleX(1); }
+}
+
+.animate-route-progress {
+  transform-origin: left;
+  animation: routeProgress 0.35s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
 }
 

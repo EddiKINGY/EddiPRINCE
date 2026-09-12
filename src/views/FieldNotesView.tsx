@@ -6,6 +6,7 @@ import { ConnectedArchiveSection } from '../components/ConnectedArchiveSection';
 import { getConnectedArchiveContext } from '../data/archiveGraph';
 import { Breadcrumb } from '../components/Breadcrumb';
 import { StickyMobileCta } from '../components/StickyMobileCta';
+import { ProgressiveDisclosureCard } from '../components/ProgressiveDisclosureCard';
 
 interface FieldNotesViewProps {
   selectedNoteSlug?: string;
@@ -37,13 +38,6 @@ export const FieldNotesView: React.FC<FieldNotesViewProps> = ({ selectedNoteSlug
 
   // If a note is selected, render the focused editorial reading experience
   if (selectedNote) {
-    const knownImages: Record<string, string> = {
-      'the-zero-state': 'og-note-the-zero-state',
-      'deconstructing-tatashi-market': 'og-note-deconstructing-tatashi-market',
-      'ai-leverage-and-velocity': 'og-note-ai-leverage-and-velocity',
-    };
-    const imageBase = knownImages[selectedNote.slug] || 'og-writing';
-
     const currentIndex = FIELD_NOTES.findIndex((n) => n.slug === selectedNote.slug);
     const nextNote = currentIndex >= 0 && currentIndex < FIELD_NOTES.length - 1
       ? FIELD_NOTES[currentIndex + 1]
@@ -98,22 +92,6 @@ export const FieldNotesView: React.FC<FieldNotesViewProps> = ({ selectedNoteSlug
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Link Copied' : 'Share Note'}</span>
             </button>
-          </div>
-
-          {/* Editorial Article Cover Banner */}
-          <div className="pt-4 rounded-2xl overflow-hidden">
-            <picture>
-              <source srcSet={`/og/${imageBase}.webp`} type="image/webp" />
-              <img
-                src={`/og/${imageBase}.jpg`}
-                alt={`Architectural editorial diagram for ${selectedNote.title}`}
-                width={1200}
-                height={630}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto object-cover aspect-[1200/630] rounded-xl border border-neutral-200 dark:border-neutral-800"
-              />
-            </picture>
           </div>
         </header>
 
@@ -251,41 +229,69 @@ export const FieldNotesView: React.FC<FieldNotesViewProps> = ({ selectedNoteSlug
         </div>
       </div>
 
-      {/* Notes List */}
-      <div className="divide-y divide-neutral-200/80 dark:divide-neutral-800/80">
+      {/* Notes List with 3-Level Progressive Disclosure */}
+      <div className="space-y-6">
         {filteredNotes.map((note) => {
           const archiveContext = getConnectedArchiveContext('ARTICLE', note.slug);
           return (
-            <article
+            <ProgressiveDisclosureCard
               key={note.id}
-              onClick={() => onNavigate('notes', note.slug)}
-              className="py-6 sm:py-8 group cursor-pointer space-y-2.5 transition-colors p-2 -mx-2 sm:p-0 sm:mx-0 rounded-xl active:bg-neutral-100/70 dark:active:bg-neutral-800/40"
-            >
-              <div className="flex flex-wrap items-center gap-2 text-[11px] sm:text-xs font-mono-code text-neutral-400">
-                <span className="uppercase text-neutral-700 dark:text-neutral-300 font-medium">{note.category}</span>
-                <span>•</span>
-                <span>{note.publicationDate}</span>
-                <span>•</span>
-                <span>{note.readingTime}</span>
-                {archiveContext.totalCount > 0 && (
-                  <>
-                    <span>•</span>
-                    <span className="inline-flex items-center gap-1 text-neutral-500">
-                      <Share2 className="w-3 h-3 text-neutral-400" />
-                      <span>{archiveContext.totalCount} Archive links</span>
-                    </span>
-                  </>
-                )}
-              </div>
-
-              <h2 className="font-serif-display text-2xl sm:text-3xl text-neutral-900 dark:text-neutral-100 group-hover:underline underline-offset-4 break-words">
-                {note.title}
-              </h2>
-
-              <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                {note.summary}
-              </p>
-            </article>
+              id={`note-card-${note.slug}`}
+              level1={{
+                title: note.title,
+                summary: note.summary,
+                state: {
+                  label: note.category,
+                  badgeClass: 'bg-blue-50 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300',
+                },
+                primaryAction: {
+                  label: 'Read Field Note',
+                  onClick: () => onNavigate('notes', note.slug),
+                  ariaLabel: `Read field note: ${note.title}`,
+                },
+              }}
+              level2={{
+                tags: note.tags,
+                metadata: [
+                  { label: 'Published', value: note.publicationDate },
+                  { label: 'Length', value: note.readingTime },
+                  { label: 'Author', value: note.author },
+                ],
+                relatedWorkCount: archiveContext.totalCount,
+                relatedWorkLabel: 'Archive links',
+              }}
+              level3={{
+                methodology: 'Observation, first-principles deduction, and production architecture retrospective.',
+                technicalDetails: (
+                  <div className="space-y-2">
+                    <p className="font-serif-display italic text-sm text-neutral-800 dark:text-neutral-200">
+                      "{note.subtitle}"
+                    </p>
+                    {note.tableOfContents.length > 0 && (
+                      <div className="text-xs font-mono-code text-neutral-500 space-y-1 pt-1">
+                        <span className="font-semibold uppercase text-neutral-400 block">Essay Sections:</span>
+                        <ul className="list-disc pl-4 space-y-0.5">
+                          {note.tableOfContents.map((toc) => (
+                            <li key={toc.id}>{toc.label}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ),
+                evidenceNotes: `Epistemic Basis: Experiential synthesis. Written to document architectural patterns and operating rules without revisionist hindsight.`,
+                archiveLinks: [
+                  ...archiveContext.projects.map((p) => ({
+                    label: `Related Project: ${p.title}`,
+                    onClick: () => onNavigate('builds', p.id),
+                  })),
+                  ...archiveContext.experiments.map((e) => ({
+                    label: `Lab Experiment: ${e.title}`,
+                    onClick: () => onNavigate('lab', e.id),
+                  })),
+                ],
+              }}
+            />
           );
         })}
       </div>

@@ -14,9 +14,16 @@ import { JourneyView } from './views/JourneyView';
 import { NowView } from './views/NowView';
 import { ResourcesView } from './views/ResourcesView';
 import { TrustView } from './views/TrustView';
+import { PrivacyView } from './views/PrivacyView';
+import { TermsView } from './views/TermsView';
 import { NotFoundView } from './views/NotFoundView';
 import { ContactView } from './views/ContactView';
 import { getRouteSeo, applySeoMeta } from './utils/seo';
+import { RouteProgressBar } from './components/LoadingSkeleton';
+import { analytics, initPerformanceMonitoring } from './services';
+import { PROJECTS, FIELD_NOTES } from './data/content';
+
+
 
 export default function App() {
   const parseRouteFromLocation = (): { page: PageRoute; itemId?: string } => {
@@ -63,6 +70,7 @@ export default function App() {
   const [selectedItemId, setSelectedItemId] = useState<string | undefined>(initialRoute.itemId);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   // Sync route on popstate / hashchange (browser forward/back buttons)
   useEffect(() => {
@@ -101,8 +109,10 @@ export default function App() {
     }
   }, [isDarkMode]);
 
-  // Global keyboard shortcuts (Cmd+K / Ctrl+K for search)
+  // Global keyboard shortcuts (Cmd+K / Ctrl+K for search) and performance initialization
   useEffect(() => {
+    initPerformanceMonitoring();
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
@@ -117,15 +127,29 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Update route-specific SEO metadata dynamically
+  // Update route-specific SEO metadata dynamically and track anonymous page view
   useEffect(() => {
     const seo = getRouteSeo(currentPage, selectedItemId);
     applySeoMeta(seo);
+    analytics.trackPageView(currentPage, seo.title);
   }, [currentPage, selectedItemId]);
 
+
   const handleNavigate = (page: PageRoute, itemId?: string) => {
+    setIsNavigating(true);
     setCurrentPage(page);
     setSelectedItemId(itemId);
+
+    // Track product signals anonymously
+    if (itemId) {
+      if (page === 'builds' || page === 'build-detail') {
+        const project = PROJECTS.find((p) => p.id === itemId || p.slug === itemId);
+        analytics.trackProjectClick(itemId, project?.title || itemId);
+      } else if (page === 'notes' || page === 'writing' || page === 'note-detail') {
+        const note = FIELD_NOTES.find((n) => n.id === itemId || n.slug === itemId);
+        analytics.trackArticleOpen(itemId, note?.title || itemId);
+      }
+    }
 
     if (typeof window !== 'undefined') {
       const hash = page === 'home' ? '' : `#${page}${itemId ? `/${itemId}` : ''}`;
@@ -135,6 +159,9 @@ export default function App() {
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      setIsNavigating(false);
+    }, 360);
   };
 
   const toggleTheme = () => {
@@ -143,6 +170,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FBFBFA] dark:bg-[#0E0F12] text-neutral-900 dark:text-neutral-100 transition-colors duration-200 overflow-x-hidden w-full">
+      <RouteProgressBar isNavigating={isNavigating} />
       
       {/* Accessible Skip to Content Link */}
       <a
@@ -216,7 +244,21 @@ export default function App() {
             <ResourcesView onNavigate={handleNavigate} />
           )}
 
-          {(currentPage === 'trust' || currentPage === 'privacy' || currentPage === 'terms') && (
+          {currentPage === 'privacy' && (
+            <PrivacyView
+              onNavigate={handleNavigate}
+              onOpenContact={() => setIsContactOpen(true)}
+            />
+          )}
+
+          {currentPage === 'terms' && (
+            <TermsView
+              onNavigate={handleNavigate}
+              onOpenContact={() => setIsContactOpen(true)}
+            />
+          )}
+
+          {currentPage === 'trust' && (
             <TrustView
               onNavigate={handleNavigate}
               onOpenContact={() => setIsContactOpen(true)}

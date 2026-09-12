@@ -41,3 +41,15 @@ Before completing any task:
 1. Run `lint_applet` (`tsc --noEmit`) to catch any TypeScript type mismatches early.
 2. Run `compile_applet` to confirm the production build completes cleanly.
 3. Verify dark mode visual contrast and responsiveness across mobile and desktop viewports.
+
+---
+
+## 5. Strict Content & Copywriting Policy (Approval First)
+
+- **Zero Unsolicited Copy Changes**: NEVER change, rewrite, replace, or add text/copy on the website on your own initiative.
+- **Mandatory Approval Workflow**:
+  1. Clearly state what text you propose to change and the reason.
+  2. Provide the exact text draft (Before vs. Proposed After).
+  3. Explicitly ask the user for approval.
+  4. Wait for the user's explicit confirmation BEFORE applying any text edits to the codebase.
+

@@ -7,6 +7,7 @@ import { getConnectedArchiveContext } from '../data/archiveGraph';
 import { Breadcrumb } from '../components/Breadcrumb';
 import { EvidenceBadge } from '../components/EvidenceBadge';
 import { StickyMobileCta } from '../components/StickyMobileCta';
+import { ProgressiveDisclosureCard } from '../components/ProgressiveDisclosureCard';
 
 interface BuildsViewProps {
   selectedProjectId?: string;
@@ -79,22 +80,6 @@ export const BuildsView: React.FC<BuildsViewProps> = ({ selectedProjectId, onNav
             <p className="leading-relaxed">
               This build is currently in the conceptual domain-modeling and state-machine design phase. All architectures and diagrams documented below represent structural hypotheses formulated to guide future pilot implementations, not a live production deployment.
             </p>
-          </div>
-
-          {/* Architectural System Blueprint */}
-          <div className="mt-6 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 shadow-xs">
-            <picture>
-              <source srcSet="/og/og-project-tatashi-market.webp" type="image/webp" />
-              <img
-                src="/og/og-project-tatashi-market.jpg"
-                alt="Tatashi Market cross-border verification architecture blueprint and lifecycle statechart"
-                width={1200}
-                height={630}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto object-cover aspect-[1200/630]"
-              />
-            </picture>
           </div>
         </header>
 
@@ -239,68 +224,61 @@ export const BuildsView: React.FC<BuildsViewProps> = ({ selectedProjectId, onNav
         </p>
       </div>
 
-      {/* Projects List */}
+      {/* Projects List with 3-Level Progressive Disclosure */}
       <div className="space-y-6">
         {PROJECTS.map((project) => {
           const archiveContext = getConnectedArchiveContext('PROJECT', project.id);
           return (
-            <article
+            <ProgressiveDisclosureCard
               key={project.id}
-              onClick={() => onNavigate('builds', project.id)}
-              className="p-4 sm:p-6 md:p-8 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white/50 dark:bg-[#121418]/50 hover:border-neutral-300 dark:hover:border-neutral-700 active:scale-[0.99] transition-all cursor-pointer space-y-4"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono-code">
-                <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 font-semibold">
-                    {project.status}
-                  </span>
-                  <EvidenceBadge level={project.evidenceLevel} />
-                  {archiveContext.totalCount > 0 && (
-                    <span className="inline-flex items-center gap-1 text-neutral-500 text-[11px]">
-                      <Share2 className="w-3 h-3 text-neutral-400" />
-                      <span>{archiveContext.totalCount} Archive links</span>
-                    </span>
-                  )}
-                </div>
-                <span className="text-neutral-400">
-                  Initiated {project.dateStarted}
-                </span>
-              </div>
-
-              <div className="space-y-1.5">
-                <h2 className="font-serif-display text-2xl sm:text-3xl text-neutral-900 dark:text-neutral-100 hover:underline break-words">
-                  {project.title}
-                </h2>
-                <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                  {project.tagline}
-                </p>
-              </div>
-
-              <div className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 space-y-1 pt-1">
-                <div>
-                  <strong className="text-neutral-800 dark:text-neutral-200">Current Phase:</strong>{' '}
-                  {project.currentStage}
-                </div>
-              </div>
-
-              <div className="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-neutral-100 dark:border-neutral-800">
-                <div className="flex flex-wrap gap-1.5">
-                  {project.technologies.slice(0, 4).map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-0.5 text-xs font-mono-code bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 rounded"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <span className="min-h-[44px] flex items-center justify-between sm:justify-start text-xs font-medium text-neutral-900 dark:text-neutral-100 gap-1 group-hover:text-amber-600 dark:group-hover:text-amber-400">
-                  <span>Read Specification Case Study</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </article>
+              id={`build-card-${project.id}`}
+              level1={{
+                title: project.title,
+                summary: project.tagline,
+                state: {
+                  label: project.status,
+                  badgeClass: 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300',
+                  evidenceLevel: project.evidenceLevel,
+                },
+                primaryAction: {
+                  label: 'Read Specification Case Study',
+                  onClick: () => onNavigate('builds', project.id),
+                  ariaLabel: `Read Specification Case Study for ${project.title}`,
+                },
+              }}
+              level2={{
+                tags: project.technologies,
+                metadata: [
+                  { label: 'Phase', value: project.currentStage },
+                  { label: 'Category', value: project.category },
+                  { label: 'Initiated', value: project.dateStarted },
+                ],
+                relatedWorkCount: archiveContext.totalCount,
+                relatedWorkLabel: 'Archive links',
+              }}
+              level3={{
+                methodology: `Exploratory domain analysis and architecture specification. Focused on ${project.category.toLowerCase()} constraints and failure-mode analysis before writing code.`,
+                technicalDetails: (
+                  <div className="space-y-2">
+                    <p>{project.shortDescription}</p>
+                    <div className="text-xs font-mono-code text-neutral-500">
+                      Problem Context: {project.problem}
+                    </div>
+                  </div>
+                ),
+                evidenceNotes: `Epistemic Status: ${project.evidenceLevel}. Pre-code domain modeling and state-machine design. No production claims are made.`,
+                archiveLinks: [
+                  ...archiveContext.notes.map((n) => ({
+                    label: `Field Note: ${n.title}`,
+                    onClick: () => onNavigate('notes', n.slug),
+                  })),
+                  ...archiveContext.experiments.map((e) => ({
+                    label: `Lab Experiment: ${e.title}`,
+                    onClick: () => onNavigate('lab', e.id),
+                  })),
+                ],
+              }}
+            />
           );
         })}
       </div>

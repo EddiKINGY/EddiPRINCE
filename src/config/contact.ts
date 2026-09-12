@@ -30,5 +30,9 @@ export const AUTHORITATIVE_CONTACT = {
   github: {
     url: 'https://github.com/eddiprince',
   },
+  whatsapp: {
+    url: 'https://wa.me/2349035528833',
+    display: '+234 903 552 8833',
+  },
   physicalAddress: PHYSICAL_CONTACT_ADDRESS_REQUIRED,
 } as const;
