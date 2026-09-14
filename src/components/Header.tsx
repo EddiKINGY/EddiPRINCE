@@ -81,6 +81,7 @@ export const Header: React.FC<HeaderProps> = ({
                 key={item.page}
                 id={`nav-link-${item.page}`}
                 onClick={() => handleNavClick(item.page)}
+                aria-current={isActive ? 'page' : undefined}
                 className={`px-3 py-1.5 text-sm transition-colors rounded-md ${
                   isActive
                     ? 'text-neutral-950 dark:text-white font-medium bg-neutral-200/50 dark:bg-neutral-800/60'
@@ -168,6 +169,7 @@ export const Header: React.FC<HeaderProps> = ({
                     key={item.page}
                     id={`mobile-nav-link-${item.page}`}
                     onClick={() => handleNavClick(item.page)}
+                    aria-current={isActive ? 'page' : undefined}
                     className={`w-full min-h-[48px] px-3.5 py-2.5 text-left rounded-lg transition-colors flex items-center justify-between ${
                       isActive
                         ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-medium'
@@ -200,6 +202,7 @@ export const Header: React.FC<HeaderProps> = ({
                     key={item.page}
                     id={`mobile-nav-link-${item.page}`}
                     onClick={() => handleNavClick(item.page)}
+                    aria-current={isActive ? 'page' : undefined}
                     className={`w-full min-h-[48px] px-3.5 py-2.5 text-left rounded-lg transition-colors flex items-center justify-between ${
                       isActive
                         ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-medium'

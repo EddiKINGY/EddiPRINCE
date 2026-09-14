@@ -10,83 +10,72 @@ export interface ContactDispatchPayload {
 export interface ContactDispatchResult {
   success: boolean;
   refId: string;
-  channel: 'webhook' | 'local_fallback';
+  channel: 'api';
   error?: string;
+  code?: 'DELIVERY_FAILURE' | 'SERVICE_UNCONFIGURED' | 'VALIDATION_FAILURE' | 'SERVICE_UNAVAILABLE';
 }
 
 /**
  * Service: Contact & Inquiries Delivery Integration
  *
- * Purpose: Securely dispatch contact inquiries to a configured webhook endpoint
- * (e.g. Formspree, Discord/Slack webhook, or custom server endpoint) or record
- * a client-side reference ticket for direct email follow-up.
- *
- * Environment Variable:
- * - VITE_CONTACT_WEBHOOK_URL: Optional HTTPS endpoint to receive form inquiries.
- *
- * Privacy:
- * - Contact payload is only transmitted if an authoritative webhook is explicitly defined.
- * - Anonymous telemetry (topic and channel only) is recorded for reliability.
+ * Security & Architecture:
+ * - Sends POST /api/contact to the server-side Cloudflare Worker.
+ * - ZERO private provider credentials or secrets exposed in client bundle.
+ * - Server validates inputs, runs honeypot spam protection, generates authoritative timestamps
+ *   and reference IDs, and dispatches to configured destination.
+ * - ZERO storage of personal inquiry data, names, or messages in localStorage (no 'eddiprince_dispatches').
+ * - Fails honestly: Only reports success when the server-side provider successfully processes the request.
  */
 export async function dispatchContactInquiry(
   payload: ContactDispatchPayload
 ): Promise<ContactDispatchResult> {
-  const refId = `EP-${Math.floor(10000 + Math.random() * 90000)}`;
-  const webhookUrl = import.meta.env.VITE_CONTACT_WEBHOOK_URL;
-
-  // Record reference in local storage for the user's records
   try {
-    const existing = JSON.parse(localStorage.getItem('eddiprince_dispatches') || '[]');
-    existing.push({
-      id: refId,
-      name: payload.name.trim(),
-      email: payload.email.trim(),
-      topic: payload.topic,
-      message: payload.message.trim(),
-      date: new Date().toISOString(),
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 7000);
+
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: payload.name.trim(),
+        email: payload.email.trim(),
+        topic: payload.topic,
+        message: payload.message.trim(),
+      }),
+      signal: controller.signal,
     });
-    localStorage.setItem('eddiprince_dispatches', JSON.stringify(existing));
-  } catch {
-    // Storage quota warning is handled non-fatally
-  }
 
-  // 1. If webhook configured, send remote payload
-  if (webhookUrl) {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4500);
+    clearTimeout(timeoutId);
 
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          refId,
-          ...payload,
-          submittedAt: new Date().toISOString(),
-        }),
-        signal: controller.signal,
-      });
+    const data = await response.json().catch(() => ({}));
 
-      clearTimeout(timeoutId);
-
-      if (response.ok) {
-        analytics.trackContactSubmission(payload.topic, true, 'webhook');
-        return {
-          success: true,
-          refId,
-          channel: 'webhook',
-        };
-      }
-    } catch {
-      // Remote delivery failure - continue to fallback
+    if (response.ok && data.success) {
+      analytics.trackContactSubmission(payload.topic, true, 'api');
+      return {
+        success: true,
+        refId: data.refId || `EP-${Math.floor(10000 + Math.random() * 90000)}`,
+        channel: 'api',
+      };
     }
-  }
 
-  // 2. Graceful Fallback: Local archiving
-  analytics.trackContactSubmission(payload.topic, true, 'local_fallback');
-  return {
-    success: true,
-    refId,
-    channel: 'local_fallback',
-  };
+    analytics.trackContactSubmission(payload.topic, false, 'api');
+    return {
+      success: false,
+      refId: data.refId || `EP-${Math.floor(10000 + Math.random() * 90000)}`,
+      channel: 'api',
+      error: data.error || 'Server delivery failure. Please use direct email.',
+      code: data.code || 'DELIVERY_FAILURE',
+    };
+  } catch {
+    analytics.trackContactSubmission(payload.topic, false, 'api');
+    return {
+      success: false,
+      refId: `EP-${Math.floor(10000 + Math.random() * 90000)}`,
+      channel: 'api',
+      error: 'Network connection error. Please send your message directly via email.',
+      code: 'SERVICE_UNAVAILABLE',
+    };
+  }
 }

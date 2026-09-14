@@ -164,16 +164,6 @@ export const PrivacyView: React.FC<PrivacyViewProps> = ({ onNavigate, onOpenCont
                   <td className="p-3 text-neutral-600 dark:text-neutral-400">Persisting your chosen light or dark visual theme.</td>
                 </tr>
                 <tr>
-                  <td className="p-3 font-semibold text-neutral-900 dark:text-neutral-100">eddiprince_dispatches</td>
-                  <td className="p-3 text-neutral-500">localStorage</td>
-                  <td className="p-3 text-neutral-600 dark:text-neutral-400">Storing a reference copy of inquiries you sent from this device.</td>
-                </tr>
-                <tr>
-                  <td className="p-3 font-semibold text-neutral-900 dark:text-neutral-100">eddiprince_subscribers</td>
-                  <td className="p-3 text-neutral-500">localStorage</td>
-                  <td className="p-3 text-neutral-600 dark:text-neutral-400">Recording your build log subscription status locally.</td>
-                </tr>
-                <tr>
                   <td className="p-3 font-semibold text-neutral-900 dark:text-neutral-100">cta_dismissed_*</td>
                   <td className="p-3 text-neutral-500">sessionStorage</td>
                   <td className="p-3 text-neutral-600 dark:text-neutral-400">Remembering if you closed an active floating prompt during this browser tab session.</td>
@@ -235,11 +225,11 @@ export const PrivacyView: React.FC<PrivacyViewProps> = ({ onNavigate, onOpenCont
         <div className="text-sm text-neutral-700 dark:text-neutral-300 space-y-3 leading-relaxed font-sans-body">
           <p>
             This site links to external platforms including GitHub (
-            <a href={AUTHORITATIVE_CONTACT.github.url} target="_blank" rel="noreferrer" className="underline hover:text-neutral-900 dark:hover:text-white">
+            <a href={AUTHORITATIVE_CONTACT.github.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-neutral-900 dark:hover:text-white">
               @eddiprince
             </a>
             ), X / Twitter (
-            <a href={AUTHORITATIVE_CONTACT.x.url} target="_blank" rel="noreferrer" className="underline hover:text-neutral-900 dark:hover:text-white">
+            <a href={AUTHORITATIVE_CONTACT.x.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-neutral-900 dark:hover:text-white">
               {AUTHORITATIVE_CONTACT.x.handle}
             </a>
             ), LinkedIn, and WhatsApp. External services maintain independent privacy policies that govern when you leave this domain.

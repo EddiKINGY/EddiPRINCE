@@ -46,13 +46,13 @@ export interface SearchEventParams {
 export interface ContactSubmissionEventParams {
   topic: string;
   success: boolean;
-  deliveryChannel: 'webhook' | 'local_fallback';
+  deliveryChannel: 'api' | 'webhook' | 'local_fallback';
 }
 
 export interface NewsletterSubmissionEventParams {
   sourceLocation: string;
   success: boolean;
-  deliveryChannel: 'webhook' | 'local_fallback';
+  deliveryChannel: 'api' | 'webhook' | 'local_fallback';
 }
 
 export type AnalyticsEvent =

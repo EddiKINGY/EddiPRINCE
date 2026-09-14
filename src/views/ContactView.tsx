@@ -419,7 +419,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
                 <a
                   href={AUTHORITATIVE_CONTACT.linkedin.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label="LinkedIn profile of David Innocent (opens in new tab)"
                   onClick={() => analytics.trackOutboundSocialClick('linkedin', AUTHORITATIVE_CONTACT.linkedin.url)}
                   className="min-h-[44px] px-2.5 py-2 -mx-2.5 rounded-xl text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white flex items-center justify-between transition-colors"
@@ -435,7 +435,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
                 <a
                   href={AUTHORITATIVE_CONTACT.x.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label="X profile @3dd1pr1nc3 (opens in new tab)"
                   onClick={() => analytics.trackOutboundSocialClick('x', AUTHORITATIVE_CONTACT.x.url)}
                   className="min-h-[44px] px-2.5 py-2 -mx-2.5 rounded-xl text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white flex items-center justify-between transition-colors"
@@ -451,7 +451,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
                 <a
                   href={AUTHORITATIVE_CONTACT.github.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label="GitHub profile @eddiprince (opens in new tab)"
                   onClick={() => analytics.trackOutboundSocialClick('github', AUTHORITATIVE_CONTACT.github.url)}
                   className="min-h-[44px] px-2.5 py-2 -mx-2.5 rounded-xl text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white flex items-center justify-between transition-colors"
@@ -467,7 +467,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
                 <a
                   href={AUTHORITATIVE_CONTACT.whatsapp.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label="WhatsApp direct chat with David Innocent (opens in new tab)"
                   onClick={() => analytics.trackOutboundSocialClick('whatsapp', AUTHORITATIVE_CONTACT.whatsapp.url)}
                   className="min-h-[44px] px-2.5 py-2 -mx-2.5 rounded-xl text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white flex items-center justify-between transition-colors"

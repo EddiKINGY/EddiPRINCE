@@ -18,23 +18,23 @@ export interface RouteSeoMeta {
 }
 
 const BASE_URL = 'https://eddiprince.com';
-const DEFAULT_AUTHOR = 'Eddi Prince';
+const DEFAULT_AUTHOR = 'EddiPRINCE';
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og/og-default.jpg`;
 
 export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
   switch (page) {
     case 'home':
       return {
-        title: 'Eddi Prince — Building Ideas Into Systems',
-        description: 'Personal digital headquarters and public archive of Eddi Prince. Documenting software architectures, day-zero learning, and commerce systems from scratch.',
+        title: 'EddiPRINCE — Building Ideas Into Systems',
+        description: 'Personal digital headquarters and public archive of EddiPRINCE. Documenting software architectures, day-zero learning, and commerce systems from scratch.',
         canonical: `${BASE_URL}/`,
-        ogTitle: 'Eddi Prince — Building Ideas Into Systems',
-        ogDescription: 'Personal digital headquarters and public archive of Eddi Prince. Documenting software architectures, day-zero learning, and commerce systems from scratch.',
+        ogTitle: 'EddiPRINCE — Building Ideas Into Systems',
+        ogDescription: 'Personal digital headquarters and public archive of EddiPRINCE. Documenting software architectures, day-zero learning, and commerce systems from scratch.',
         ogUrl: `${BASE_URL}/`,
         ogImage: `${BASE_URL}/og/og-home.jpg`,
-        ogImageAlt: 'Eddi Prince — Building Ideas Into Systems',
-        twitterTitle: 'Eddi Prince — Building Ideas Into Systems',
-        twitterDescription: 'Personal digital headquarters and public archive of Eddi Prince. Documenting software architectures, day-zero learning, and commerce systems from scratch.',
+        ogImageAlt: 'EddiPRINCE — Building Ideas Into Systems',
+        twitterTitle: 'EddiPRINCE — Building Ideas Into Systems',
+        twitterDescription: 'Personal digital headquarters and public archive of EddiPRINCE. Documenting software architectures, day-zero learning, and commerce systems from scratch.',
         twitterImage: `${BASE_URL}/og/og-home.jpg`,
         twitterCard: 'summary_large_image',
         author: DEFAULT_AUTHOR,
@@ -42,16 +42,16 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
 
     case 'about':
       return {
-        title: 'About Eddi Prince — Creator, Builder & Founder-in-Progress',
-        description: "Foundations, operating principles, and the anti-prestige philosophy behind Eddi Prince's journey building software from the zero state.",
+        title: 'About EddiPRINCE — Creator, Builder & Founder-in-Progress',
+        description: "Foundations, operating principles, and the anti-prestige philosophy behind EddiPRINCE's journey building software from the zero state.",
         canonical: `${BASE_URL}/about`,
-        ogTitle: 'About Eddi Prince — Creator, Builder & Founder-in-Progress',
-        ogDescription: "Foundations, operating principles, and the anti-prestige philosophy behind Eddi Prince's journey building software from the zero state.",
+        ogTitle: 'About EddiPRINCE — Creator, Builder & Founder-in-Progress',
+        ogDescription: "Foundations, operating principles, and the anti-prestige philosophy behind EddiPRINCE's journey building software from the zero state.",
         ogUrl: `${BASE_URL}/about`,
         ogImage: `${BASE_URL}/og/og-about.jpg`,
-        ogImageAlt: 'About Eddi Prince — Foundations & Craft',
-        twitterTitle: 'About Eddi Prince — Creator, Builder & Founder-in-Progress',
-        twitterDescription: "Foundations, operating principles, and the anti-prestige philosophy behind Eddi Prince's journey building software from the zero state.",
+        ogImageAlt: 'About EddiPRINCE — Foundations & Craft',
+        twitterTitle: 'About EddiPRINCE — Creator, Builder & Founder-in-Progress',
+        twitterDescription: "Foundations, operating principles, and the anti-prestige philosophy behind EddiPRINCE's journey building software from the zero state.",
         twitterImage: `${BASE_URL}/og/og-about.jpg`,
         twitterCard: 'summary_large_image',
         author: DEFAULT_AUTHOR,
@@ -62,7 +62,7 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
       if (itemId) {
         const project = PROJECTS.find((p) => p.id === itemId);
         if (project) {
-          const detailTitle = `${project.title} — Builds | Eddi Prince`;
+          const detailTitle = `${project.title} — Builds | EddiPRINCE`;
           const detailDesc = project.shortDescription || project.tagline;
           const isTatashi = project.id === 'tatashi-market';
           const projectOgImage = isTatashi
@@ -87,16 +87,16 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
         }
       }
       return {
-        title: 'Builds — Eddi Prince',
-        description: 'Production systems, working prototypes, and technical architectures built by Eddi Prince, including Tatashi Market for emerging merchant trade.',
+        title: 'Builds — EddiPRINCE',
+        description: 'Production systems, working prototypes, and technical architectures built by EddiPRINCE, including Tatashi Market for emerging merchant trade.',
         canonical: `${BASE_URL}/builds`,
-        ogTitle: 'Builds — Eddi Prince',
-        ogDescription: 'Production systems, working prototypes, and technical architectures built by Eddi Prince, including Tatashi Market for emerging merchant trade.',
+        ogTitle: 'Builds — EddiPRINCE',
+        ogDescription: 'Production systems, working prototypes, and technical architectures built by EddiPRINCE, including Tatashi Market for emerging merchant trade.',
         ogUrl: `${BASE_URL}/builds`,
         ogImage: `${BASE_URL}/og/og-builds.jpg`,
-        ogImageAlt: 'Builds & Systems Architecture — Eddi Prince',
-        twitterTitle: 'Builds — Eddi Prince',
-        twitterDescription: 'Production systems, working prototypes, and technical architectures built by Eddi Prince, including Tatashi Market for emerging merchant trade.',
+        ogImageAlt: 'Builds & Systems Architecture — EddiPRINCE',
+        twitterTitle: 'Builds — EddiPRINCE',
+        twitterDescription: 'Production systems, working prototypes, and technical architectures built by EddiPRINCE, including Tatashi Market for emerging merchant trade.',
         twitterImage: `${BASE_URL}/og/og-builds.jpg`,
         twitterCard: 'summary_large_image',
         author: DEFAULT_AUTHOR,
@@ -109,7 +109,7 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
       if (itemId) {
         const note = FIELD_NOTES.find((n) => n.slug === itemId || n.id === itemId);
         if (note) {
-          const noteTitle = `${note.title} — Writing | Eddi Prince`;
+          const noteTitle = `${note.title} — Writing | EddiPRINCE`;
           const noteDesc = note.summary;
           let noteOgImage = `${BASE_URL}/og/og-writing.jpg`;
 
@@ -129,7 +129,7 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
             ogDescription: noteDesc,
             ogUrl: `${BASE_URL}/writing/${note.slug}`,
             ogImage: noteOgImage,
-            ogImageAlt: `${note.title} — Eddi Prince`,
+            ogImageAlt: `${note.title} — EddiPRINCE`,
             twitterTitle: noteTitle,
             twitterDescription: noteDesc,
             twitterImage: noteOgImage,
@@ -139,15 +139,15 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
         }
       }
       return {
-        title: 'Writing — Eddi Prince',
+        title: 'Writing — EddiPRINCE',
         description: 'Field notes, architectural essays, and deconstructions on distributed systems, AI leverage, and building software from day zero.',
         canonical: `${BASE_URL}/writing`,
-        ogTitle: 'Writing — Eddi Prince',
+        ogTitle: 'Writing — EddiPRINCE',
         ogDescription: 'Field notes, architectural essays, and deconstructions on distributed systems, AI leverage, and building software from day zero.',
         ogUrl: `${BASE_URL}/writing`,
         ogImage: `${BASE_URL}/og/og-writing.jpg`,
-        ogImageAlt: 'Field Notes & Architectural Essays — Eddi Prince',
-        twitterTitle: 'Writing — Eddi Prince',
+        ogImageAlt: 'Field Notes & Architectural Essays — EddiPRINCE',
+        twitterTitle: 'Writing — EddiPRINCE',
         twitterDescription: 'Field notes, architectural essays, and deconstructions on distributed systems, AI leverage, and building software from day zero.',
         twitterImage: `${BASE_URL}/og/og-writing.jpg`,
         twitterCard: 'summary_large_image',
@@ -157,15 +157,15 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
 
     case 'journey':
       return {
-        title: 'The Journey — Eddi Prince',
+        title: 'The Journey — EddiPRINCE',
         description: 'An honest chronological timeline documenting day-zero milestones, pivotal architectural choices, and lessons learned in the open.',
         canonical: `${BASE_URL}/journey`,
-        ogTitle: 'The Journey — Eddi Prince',
+        ogTitle: 'The Journey — EddiPRINCE',
         ogDescription: 'An honest chronological timeline documenting day-zero milestones, pivotal architectural choices, and lessons learned in the open.',
         ogUrl: `${BASE_URL}/journey`,
         ogImage: `${BASE_URL}/og/og-journey.jpg`,
-        ogImageAlt: 'The Journey: Timeline from Day Zero — Eddi Prince',
-        twitterTitle: 'The Journey — Eddi Prince',
+        ogImageAlt: 'The Journey: Timeline from Day Zero — EddiPRINCE',
+        twitterTitle: 'The Journey — EddiPRINCE',
         twitterDescription: 'An honest chronological timeline documenting day-zero milestones, pivotal architectural choices, and lessons learned in the open.',
         twitterImage: `${BASE_URL}/og/og-journey.jpg`,
         twitterCard: 'summary_large_image',
@@ -174,16 +174,16 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
 
     case 'now':
       return {
-        title: 'Now (/now) — Eddi Prince',
-        description: 'What Eddi Prince is currently building, learning, exploring, and reading during the active cycle, updated regularly.',
+        title: 'Now (/now) — EddiPRINCE',
+        description: 'What EddiPRINCE is currently building, learning, exploring, and reading during the active cycle, updated regularly.',
         canonical: `${BASE_URL}/now`,
-        ogTitle: 'Now (/now) — Eddi Prince',
-        ogDescription: 'What Eddi Prince is currently building, learning, exploring, and reading during the active cycle, updated regularly.',
+        ogTitle: 'Now (/now) — EddiPRINCE',
+        ogDescription: 'What EddiPRINCE is currently building, learning, exploring, and reading during the active cycle, updated regularly.',
         ogUrl: `${BASE_URL}/now`,
         ogImage: `${BASE_URL}/og/og-now.jpg`,
-        ogImageAlt: 'What I am Doing Now — Eddi Prince',
-        twitterTitle: 'Now (/now) — Eddi Prince',
-        twitterDescription: 'What Eddi Prince is currently building, learning, exploring, and reading during the active cycle, updated regularly.',
+        ogImageAlt: 'What I am Doing Now — EddiPRINCE',
+        twitterTitle: 'Now (/now) — EddiPRINCE',
+        twitterDescription: 'What EddiPRINCE is currently building, learning, exploring, and reading during the active cycle, updated regularly.',
         twitterImage: `${BASE_URL}/og/og-now.jpg`,
         twitterCard: 'summary_large_image',
         author: DEFAULT_AUTHOR,
@@ -194,7 +194,7 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
       if (itemId) {
         const exp = LAB_EXPERIMENTS.find((e) => e.id === itemId || e.slug === itemId);
         if (exp) {
-          const expTitle = `${exp.title} — The Lab | Eddi Prince`;
+          const expTitle = `${exp.title} — The Lab | EddiPRINCE`;
           const expDesc = exp.hypothesis;
           return {
             title: expTitle,
@@ -204,7 +204,7 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
             ogDescription: expDesc,
             ogUrl: `${BASE_URL}/lab/${exp.slug || exp.id}`,
             ogImage: `${BASE_URL}/og/og-lab.jpg`,
-            ogImageAlt: `The Lab: ${exp.title} — Eddi Prince`,
+            ogImageAlt: `The Lab: ${exp.title} — EddiPRINCE`,
             twitterTitle: expTitle,
             twitterDescription: expDesc,
             twitterImage: `${BASE_URL}/og/og-lab.jpg`,
@@ -214,15 +214,15 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
         }
       }
       return {
-        title: 'The Lab — Eddi Prince',
+        title: 'The Lab — EddiPRINCE',
         description: 'Falsifiable technical hypotheses, isolated code prototypes, and empirical investigations in distributed networks, AI, and security.',
         canonical: `${BASE_URL}/lab`,
-        ogTitle: 'The Lab — Eddi Prince',
+        ogTitle: 'The Lab — EddiPRINCE',
         ogDescription: 'Falsifiable technical hypotheses, isolated code prototypes, and empirical investigations in distributed networks, AI, and security.',
         ogUrl: `${BASE_URL}/lab`,
         ogImage: `${BASE_URL}/og/og-lab.jpg`,
-        ogImageAlt: 'The Lab: Hypotheses & Experiments — Eddi Prince',
-        twitterTitle: 'The Lab — Eddi Prince',
+        ogImageAlt: 'The Lab: Hypotheses & Experiments — EddiPRINCE',
+        twitterTitle: 'The Lab — EddiPRINCE',
         twitterDescription: 'Falsifiable technical hypotheses, isolated code prototypes, and empirical investigations in distributed networks, AI, and security.',
         twitterImage: `${BASE_URL}/og/og-lab.jpg`,
         twitterCard: 'summary_large_image',
@@ -232,16 +232,16 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
 
     case 'resources':
       return {
-        title: 'Curated Resources — Eddi Prince',
-        description: "Books, foundational papers, developer tools, and mental models that shape Eddi Prince's architectural thinking.",
+        title: 'Curated Resources — EddiPRINCE',
+        description: "Books, foundational papers, developer tools, and mental models that shape EddiPRINCE's architectural thinking.",
         canonical: `${BASE_URL}/resources`,
-        ogTitle: 'Curated Resources — Eddi Prince',
-        ogDescription: "Books, foundational papers, developer tools, and mental models that shape Eddi Prince's architectural thinking.",
+        ogTitle: 'Curated Resources — EddiPRINCE',
+        ogDescription: "Books, foundational papers, developer tools, and mental models that shape EddiPRINCE's architectural thinking.",
         ogUrl: `${BASE_URL}/resources`,
         ogImage: `${BASE_URL}/og/og-resources.jpg`,
-        ogImageAlt: 'Curated Resources & Foundations — Eddi Prince',
-        twitterTitle: 'Curated Resources — Eddi Prince',
-        twitterDescription: "Books, foundational papers, developer tools, and mental models that shape Eddi Prince's architectural thinking.",
+        ogImageAlt: 'Curated Resources & Foundations — EddiPRINCE',
+        twitterTitle: 'Curated Resources — EddiPRINCE',
+        twitterDescription: "Books, foundational papers, developer tools, and mental models that shape EddiPRINCE's architectural thinking.",
         twitterImage: `${BASE_URL}/og/og-resources.jpg`,
         twitterCard: 'summary_large_image',
         author: DEFAULT_AUTHOR,
@@ -249,16 +249,16 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
 
     case 'contact':
       return {
-        title: 'Contact & Inquiries — Eddi Prince',
-        description: 'Direct electronic channels to contact Eddi Prince for technical dialogue, architecture reviews, or inquiries.',
+        title: 'Contact & Inquiries — EddiPRINCE',
+        description: 'Direct electronic channels to contact EddiPRINCE for technical dialogue, architecture reviews, or inquiries.',
         canonical: `${BASE_URL}/contact`,
-        ogTitle: 'Contact & Inquiries — Eddi Prince',
-        ogDescription: 'Direct electronic channels to contact Eddi Prince for technical dialogue, architecture reviews, or inquiries.',
+        ogTitle: 'Contact & Inquiries — EddiPRINCE',
+        ogDescription: 'Direct electronic channels to contact EddiPRINCE for technical dialogue, architecture reviews, or inquiries.',
         ogUrl: `${BASE_URL}/contact`,
         ogImage: `${BASE_URL}/og/og-contact.jpg`,
-        ogImageAlt: 'Contact & Inquiries — Eddi Prince',
-        twitterTitle: 'Contact & Inquiries — Eddi Prince',
-        twitterDescription: 'Direct electronic channels to contact Eddi Prince for technical dialogue, architecture reviews, or inquiries.',
+        ogImageAlt: 'Contact & Inquiries — EddiPRINCE',
+        twitterTitle: 'Contact & Inquiries — EddiPRINCE',
+        twitterDescription: 'Direct electronic channels to contact EddiPRINCE for technical dialogue, architecture reviews, or inquiries.',
         twitterImage: `${BASE_URL}/og/og-contact.jpg`,
         twitterCard: 'summary_large_image',
         author: DEFAULT_AUTHOR,
@@ -266,15 +266,15 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
 
     case 'privacy':
       return {
-        title: 'Privacy & Data Ethics — Eddi Prince',
+        title: 'Privacy & Data Ethics — EddiPRINCE',
         description: 'Zero-surveillance privacy commitment: no tracking beacons, no third-party analytics pixels, and local-only client preferences.',
         canonical: `${BASE_URL}/privacy`,
-        ogTitle: 'Privacy & Data Ethics — Eddi Prince',
+        ogTitle: 'Privacy & Data Ethics — EddiPRINCE',
         ogDescription: 'Zero-surveillance privacy commitment: no tracking beacons, no third-party analytics pixels, and local-only client preferences.',
         ogUrl: `${BASE_URL}/privacy`,
         ogImage: DEFAULT_OG_IMAGE,
-        ogImageAlt: 'Privacy & Data Ethics — Eddi Prince',
-        twitterTitle: 'Privacy & Data Ethics — Eddi Prince',
+        ogImageAlt: 'Privacy & Data Ethics — EddiPRINCE',
+        twitterTitle: 'Privacy & Data Ethics — EddiPRINCE',
         twitterDescription: 'Zero-surveillance privacy commitment: no tracking beacons, no third-party analytics pixels, and local-only client preferences.',
         twitterImage: DEFAULT_OG_IMAGE,
         twitterCard: 'summary',
@@ -283,15 +283,15 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
 
     case 'terms':
       return {
-        title: 'Terms of Use — Eddi Prince',
+        title: 'Terms of Use — EddiPRINCE',
         description: 'Professional usage conditions and intellectual property disclosures for EddiPRINCE.com and upcoming software builds.',
         canonical: `${BASE_URL}/terms`,
-        ogTitle: 'Terms of Use — Eddi Prince',
+        ogTitle: 'Terms of Use — EddiPRINCE',
         ogDescription: 'Professional usage conditions and intellectual property disclosures for EddiPRINCE.com and upcoming software builds.',
         ogUrl: `${BASE_URL}/terms`,
         ogImage: DEFAULT_OG_IMAGE,
-        ogImageAlt: 'Terms of Use — Eddi Prince',
-        twitterTitle: 'Terms of Use — Eddi Prince',
+        ogImageAlt: 'Terms of Use — EddiPRINCE',
+        twitterTitle: 'Terms of Use — EddiPRINCE',
         twitterDescription: 'Professional usage conditions and intellectual property disclosures for EddiPRINCE.com and upcoming software builds.',
         twitterImage: DEFAULT_OG_IMAGE,
         twitterCard: 'summary',
@@ -300,15 +300,15 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
 
     case 'trust':
       return {
-        title: 'Trust & Operating Standards — Eddi Prince',
+        title: 'Trust & Operating Standards — EddiPRINCE',
         description: 'Open source licensing, operating standards, technical colophon, and epistemic benchmarks for eddiprince.com.',
         canonical: `${BASE_URL}/trust`,
-        ogTitle: 'Trust & Operating Standards — Eddi Prince',
+        ogTitle: 'Trust & Operating Standards — EddiPRINCE',
         ogDescription: 'Open source licensing, operating standards, technical colophon, and epistemic benchmarks for eddiprince.com.',
         ogUrl: `${BASE_URL}/trust`,
         ogImage: DEFAULT_OG_IMAGE,
-        ogImageAlt: 'Trust & Operating Standards — Eddi Prince',
-        twitterTitle: 'Trust & Operating Standards — Eddi Prince',
+        ogImageAlt: 'Trust & Operating Standards — EddiPRINCE',
+        twitterTitle: 'Trust & Operating Standards — EddiPRINCE',
         twitterDescription: 'Open source licensing, operating standards, technical colophon, and epistemic benchmarks for eddiprince.com.',
         twitterImage: DEFAULT_OG_IMAGE,
         twitterCard: 'summary',
@@ -318,15 +318,15 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
     case 'not-found':
     default:
       return {
-        title: "404: This page doesn't exist — Eddi Prince",
+        title: "404: This page doesn't exist — EddiPRINCE",
         description: 'The requested artifact or route could not be located in the digital archive. Explore builds, read field notes, or return home.',
         canonical: `${BASE_URL}/404`,
-        ogTitle: "404: This page doesn't exist — Eddi Prince",
+        ogTitle: "404: This page doesn't exist — EddiPRINCE",
         ogDescription: 'The requested artifact or route could not be located in the digital archive. Explore builds, read field notes, or return home.',
         ogUrl: `${BASE_URL}/404`,
         ogImage: DEFAULT_OG_IMAGE,
-        ogImageAlt: "404: This page doesn't exist — Eddi Prince",
-        twitterTitle: "404: This page doesn't exist — Eddi Prince",
+        ogImageAlt: "404: This page doesn't exist — EddiPRINCE",
+        twitterTitle: "404: This page doesn't exist — EddiPRINCE",
         twitterDescription: 'The requested artifact or route could not be located in the digital archive.',
         twitterImage: DEFAULT_OG_IMAGE,
         twitterCard: 'summary',

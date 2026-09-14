@@ -2,78 +2,68 @@ import { analytics } from '../analytics';
 
 export interface NewsletterSubscriptionResult {
   success: boolean;
-  channel: 'webhook' | 'local_fallback';
   message: string;
+  code?: 'DELIVERY_FAILURE' | 'SERVICE_UNCONFIGURED' | 'VALIDATION_FAILURE' | 'SERVICE_UNAVAILABLE';
 }
 
 /**
  * Service: Newsletter Delivery Integration
  *
- * Purpose: Securely forward subscriber requests to an authenticated webhook
- * or fallback gracefully to client local persistence.
- *
- * Environment Variable:
- * - VITE_NEWSLETTER_WEBHOOK_URL: Optional HTTPS endpoint to receive subscriber JSON.
- *
- * Privacy:
- * - The email is used solely for subscription delivery.
- * - If unconfigured, data is retained strictly on the client device.
+ * Security & Architecture:
+ * - Sends POST /api/newsletter to the server-side Cloudflare Worker.
+ * - ZERO private Beehiiv tokens or webhook secrets are exposed in client bundle.
+ * - Server holds BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID securely.
+ * - ZERO storage of visitor email addresses in localStorage (no 'eddiprince_subscribers').
+ * - Fails honestly: Only reports success when the authoritative provider confirms subscription.
  */
 export async function submitNewsletterSubscription(
   email: string,
   sourceLocation: string = 'newsletter_section'
 ): Promise<NewsletterSubscriptionResult> {
   const normalizedEmail = email.trim().toLowerCase();
-  const webhookUrl = import.meta.env.VITE_NEWSLETTER_WEBHOOK_URL;
 
-  // Always keep a local reference so user doesn't re-subscribe
   try {
-    const subs: string[] = JSON.parse(localStorage.getItem('eddiprince_subscribers') || '[]');
-    if (!subs.includes(normalizedEmail)) {
-      subs.push(normalizedEmail);
-      localStorage.setItem('eddiprince_subscribers', JSON.stringify(subs));
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+    const response = await fetch('/api/newsletter', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: normalizedEmail,
+        source: sourceLocation,
+      }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    const data = await response.json().catch(() => ({}));
+
+    if (response.ok && data.success) {
+      analytics.trackNewsletterSubmission(sourceLocation, true, 'api');
+      return {
+        success: true,
+        message: data.message || 'Subscription confirmed with newsletter provider.',
+      };
     }
+
+    // Unsuccessful delivery from server
+    analytics.trackNewsletterSubmission(sourceLocation, false, 'api');
+    return {
+      success: false,
+      message: data.error || 'Unable to confirm subscription. Please contact directly via email.',
+      code: data.code || 'DELIVERY_FAILURE',
+    };
   } catch {
-    // LocalStorage quota error is non-fatal
+    // Network glitch or offline state
+    analytics.trackNewsletterSubmission(sourceLocation, false, 'api');
+    return {
+      success: false,
+      message: 'Network connection error. Please try again or email directly.',
+      code: 'SERVICE_UNAVAILABLE',
+    };
   }
-
-  // 1. If an external webhook is configured, attempt delivery
-  if (webhookUrl) {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
-
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: normalizedEmail,
-          source: sourceLocation,
-          timestamp: new Date().toISOString(),
-        }),
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeoutId);
-
-      if (response.ok) {
-        analytics.trackNewsletterSubmission(sourceLocation, true, 'webhook');
-        return {
-          success: true,
-          channel: 'webhook',
-          message: 'Subscription confirmed via direct delivery channel.',
-        };
-      }
-    } catch {
-      // Remote delivery failure; fall back to local queue
-    }
-  }
-
-  // 2. Graceful Fallback: Local confirmation
-  analytics.trackNewsletterSubmission(sourceLocation, true, 'local_fallback');
-  return {
-    success: true,
-    channel: 'local_fallback',
-    message: 'Subscription saved locally. Periodic dispatches will be delivered directly.',
-  };
 }

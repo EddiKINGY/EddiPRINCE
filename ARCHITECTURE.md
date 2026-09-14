@@ -133,3 +133,18 @@ The dark theme is handled via Tailwind CSS v4 class strategy:
 - Development: `npm run dev` (Vite dev server bound to port 3000)
 - Production Build: `npm run build` (`vite build`) producing static files in `/dist`
 - Type Check & Lint: `npm run lint` (`tsc --noEmit`)
+
+---
+
+## 7. Secure Integration & Serverless Edge Boundary
+
+To protect external API secrets and visitor privacy:
+- **Architecture**: A lightweight serverless boundary using Cloudflare Pages Functions / Workers (`/functions/api/*`).
+- **Endpoints**:
+  - `POST /api/newsletter`: Validates email formats and delivers to Beehiiv API v2 using server-side `BEEHIIV_API_KEY` and `BEEHIIV_PUBLICATION_ID`.
+  - `POST /api/contact`: Implements honeypot spam detection, strict length and character validation, server-side timestamp generation, and dispatches to verified contact endpoints or transactional mailers without client-exposed secrets.
+- **Client Security Guarantee**:
+  - Zero private credentials, API tokens, or webhook secrets are placed in `VITE_*` variables.
+  - Zero visitor PII (inquiry messages or subscriber emails) is stored in browser `localStorage`.
+  - Honest failure states: No synthetic fake success responses; errors are reported truthfully to visitors with direct mail fallback.
+

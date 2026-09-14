@@ -389,7 +389,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <a
                 href={AUTHORITATIVE_CONTACT.linkedin.url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn profile of David Innocent (opens in new tab)"
                 onClick={() => analytics.trackOutboundSocialClick('linkedin', AUTHORITATIVE_CONTACT.linkedin.url)}
                 className="hover:text-neutral-900 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded px-1.5 py-1 flex items-center gap-1 transition-colors"
@@ -401,7 +401,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <a
                 href={AUTHORITATIVE_CONTACT.x.url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="X profile @3dd1pr1nc3 (opens in new tab)"
                 onClick={() => analytics.trackOutboundSocialClick('x', AUTHORITATIVE_CONTACT.x.url)}
                 className="hover:text-neutral-900 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded px-1.5 py-1 flex items-center gap-1 transition-colors"
@@ -413,7 +413,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <a
                 href={AUTHORITATIVE_CONTACT.github.url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="GitHub profile @eddiprince (opens in new tab)"
                 onClick={() => analytics.trackOutboundSocialClick('github', AUTHORITATIVE_CONTACT.github.url)}
                 className="hover:text-neutral-900 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded px-1.5 py-1 flex items-center gap-1 transition-colors"
@@ -425,7 +425,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <a
                 href={AUTHORITATIVE_CONTACT.whatsapp.url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="WhatsApp direct chat with David Innocent (opens in new tab)"
                 onClick={() => analytics.trackOutboundSocialClick('whatsapp', AUTHORITATIVE_CONTACT.whatsapp.url)}
                 className="hover:text-neutral-900 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded px-1.5 py-1 flex items-center gap-1 transition-colors"

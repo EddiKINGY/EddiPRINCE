@@ -83,7 +83,7 @@ export const ResourcesView: React.FC<ResourcesViewProps> = ({ onNavigate }) => {
               <a
                 href={res.url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="font-serif-display text-2xl text-neutral-900 dark:text-neutral-100 hover:underline inline-flex items-center gap-1.5"
               >
                 <span>{res.title}</span>

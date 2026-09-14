@@ -166,7 +166,7 @@ class AnalyticsService {
   }
 
   // 6. Contact Submission (Topic and status only; NEVER personal message text or sender email)
-  public trackContactSubmission(topic: string, success: boolean, deliveryChannel: 'webhook' | 'local_fallback'): void {
+  public trackContactSubmission(topic: string, success: boolean, deliveryChannel: 'api' | 'webhook' | 'local_fallback'): void {
     this.send({
       name: 'contact_submission',
       params: {
@@ -178,7 +178,7 @@ class AnalyticsService {
   }
 
   // 7. Newsletter Submission (Source location and status only; NEVER sender email)
-  public trackNewsletterSubmission(sourceLocation: string, success: boolean, deliveryChannel: 'webhook' | 'local_fallback'): void {
+  public trackNewsletterSubmission(sourceLocation: string, success: boolean, deliveryChannel: 'api' | 'webhook' | 'local_fallback'): void {
     this.send({
       name: 'newsletter_submission',
       params: {

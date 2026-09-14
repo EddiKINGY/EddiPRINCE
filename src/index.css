@@ -94,3 +94,26 @@
   animation: routeProgress 0.35s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
 }
 
+/* Accessible focus rings across interactive elements */
+:focus-visible {
+  outline: 2px solid #D97706; /* amber-600 */
+  outline-offset: 2px;
+}
+
+.dark :focus-visible {
+  outline: 2px solid #F59E0B; /* amber-500 */
+  outline-offset: 2px;
+}
+
+/* Respect user's vestibular & motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

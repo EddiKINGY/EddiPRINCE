@@ -257,7 +257,7 @@ export const ConnectedArchiveSection: React.FC<ConnectedArchiveSectionProps> = (
                     <a
                       href={res.url}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="font-serif-display text-base text-neutral-900 dark:text-neutral-100 hover:underline inline-flex items-center gap-1"
                     >
                       <span>{res.title}</span>
