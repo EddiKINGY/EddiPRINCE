@@ -81,8 +81,8 @@ export const PROJECTS: Project[] = [
     problem: 'Cross-border commerce across emerging markets suffers from persistent trust deficits: informal WhatsApp-based trade lacks escrow protections, supplier identities are unverifiable before payment, and cross-currency settlement incurs predatory exchange fees.',
     motivation: 'I wanted to understand how trade rails function from first principles. Rather than building another generic shop, I am researching how identity verification and lightweight milestone escrow can remove existential risk for first-time cross-border buyers and suppliers.',
     vision: 'A resilient, low-overhead commercial exchange that turns informal micro-exporters into verifiable global merchants, supported by transparent transaction proofs and localized payment integrations.',
-    currentStage: 'Consolidating active application server around Node.js/Express & PostgreSQL/Supabase; trade verification endpoints in progress.',
-    progressPercentage: 8,
+    currentStage: 'Backend architecture consolidated around Node.js/Express & PostgreSQL/Supabase (Completed); merchant verification state machines and trade endpoints in active development.',
+    progressPercentage: 10,
     featured: true,
     technologies: [
       'TypeScript',
@@ -111,8 +111,8 @@ export const PROJECTS: Project[] = [
       },
       {
         date: 'September 2026',
-        title: 'Backend Architecture Consolidation',
-        notes: 'Consolidated the active server runtime around Node.js/Express and PostgreSQL/Supabase, parking the dual Python/FastAPI implementation to eliminate competing request paths.'
+        title: 'Backend Architecture Consolidation (Completed)',
+        notes: 'Consolidated application architecture around a single canonical Node.js/Express backend with PostgreSQL/Supabase, removing competing backend paths and establishing one authoritative request flow. Python/FastAPI cleanly parked.'
       },
       {
         date: 'Upcoming',
@@ -403,13 +403,13 @@ export const JOURNEY_MILESTONES: JourneyMilestone[] = [
     formattedMonth: 'September 2026',
     title: 'Consolidated Tatashi Market Backend Architecture',
     type: 'breakthrough',
-    evidenceLevel: 'IN_PROGRESS',
-    description: 'Consolidated application architecture around a single canonical Node.js/Express backend with PostgreSQL/Supabase, parking Python/FastAPI as a future option.',
-    context: 'Pragmatic engineering trade-off: eliminated competing backend paths to streamline development under resource and mobile constraints.',
+    evidenceLevel: 'PROTOTYPE',
+    description: 'Consolidated Tatashi Market from competing Express/FastAPI implementations into a single canonical Express backend with PostgreSQL/Supabase, establishing one request path and authoritative storage boundaries.',
+    context: 'Milestone completed: Express is the active backend; Tatashi Market product development remains in progress.',
     relatedProjects: ['tatashi-market'],
     relatedNotes: ['tatashi-market-backend-consolidation', 'deconstructing-tatashi-market'],
     relatedIdeas: ['b-4'],
-    relatedRoute: { page: 'notes', id: 'tatashi-market-backend-consolidation', label: 'Read Architecture Note' }
+    relatedRoute: { page: 'notes', id: 'tatashi-market-backend-consolidation', label: 'Read Consolidation Record' }
   },
   {
     id: 'jm-004',
@@ -471,8 +471,8 @@ export const NOW_DATA: NowData = {
   lastUpdated: 'September 26, 2026',
   building: [
     {
-      title: 'Tatashi Market (Backend Consolidation)',
-      desc: 'Consolidated active server runtime around Node.js/Express & PostgreSQL/Supabase; developing verification endpoints under mobile constraints.',
+      title: 'Tatashi Market (Product Mechanics)',
+      desc: 'Backend architecture consolidated (Completed). Now actively developing merchant verification state machines and escrow endpoints.',
       linkRoute: 'builds',
       linkId: 'tatashi-market'
     },

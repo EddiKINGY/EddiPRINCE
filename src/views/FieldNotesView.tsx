@@ -7,6 +7,7 @@ import { getConnectedArchiveContext } from '../data/archiveGraph';
 import { Breadcrumb } from '../components/Breadcrumb';
 import { StickyMobileCta } from '../components/StickyMobileCta';
 import { ProgressiveDisclosureCard } from '../components/ProgressiveDisclosureCard';
+import { TatashiConsolidationArtifact } from '../components/TatashiConsolidationArtifact';
 
 interface FieldNotesViewProps {
   selectedNoteSlug?: string;
@@ -36,7 +37,12 @@ export const FieldNotesView: React.FC<FieldNotesViewProps> = ({ selectedNoteSlug
     }
   };
 
-  // If a note is selected, render the focused editorial reading experience
+  // If the backend consolidation note is selected, render the dedicated technical artifact
+  if (selectedNote && (selectedNote.slug === 'tatashi-market-backend-consolidation' || selectedNote.id === 'fn-004')) {
+    return <TatashiConsolidationArtifact onNavigate={onNavigate} />;
+  }
+
+  // If any other note is selected, render the focused editorial reading experience
   if (selectedNote) {
     const currentIndex = FIELD_NOTES.findIndex((n) => n.slug === selectedNote.slug);
     const nextNote = currentIndex >= 0 && currentIndex < FIELD_NOTES.length - 1

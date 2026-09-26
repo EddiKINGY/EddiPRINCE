@@ -114,6 +114,41 @@ export const BuildsView: React.FC<BuildsViewProps> = ({ selectedProjectId, onNav
             <h2 className="text-xs font-mono-code uppercase tracking-wider text-neutral-500 font-semibold">
               03. Architecture & Escrow Statechart
             </h2>
+
+            {selectedProject.id === 'tatashi-market' && (
+              <div className="p-4 sm:p-5 rounded-2xl border border-emerald-500/40 bg-emerald-50/50 dark:bg-emerald-950/20 space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-xs font-mono-code font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                      Architecture Milestone: Completed
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono-code text-neutral-500 dark:text-neutral-400">
+                    September 2026
+                  </span>
+                </div>
+                <h3 className="font-serif-display text-xl text-neutral-900 dark:text-neutral-50">
+                  Backend Architecture Consolidated Around Express
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                  Eliminated competing backend paths by establishing Node.js/Express as the canonical application server with PostgreSQL/Supabase as the authoritative datastore. Python/FastAPI is cleanly parked as reference architecture.
+                </p>
+                <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-emerald-500/20">
+                  <span className="text-xs font-mono-code text-neutral-600 dark:text-neutral-400">
+                    Tatashi Market Product Status: <strong className="text-amber-700 dark:text-amber-400 font-semibold">In Progress</strong>
+                  </span>
+                  <button
+                    onClick={() => onNavigate('notes', 'tatashi-market-backend-consolidation')}
+                    className="min-h-[38px] inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono-code font-semibold bg-emerald-600 hover:bg-emerald-700 text-white active:scale-95 transition-all shadow-xs"
+                  >
+                    <span>Read Consolidation Record</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            )}
+
             <p className="text-sm sm:text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
               {selectedProject.architectureNotes}
             </p>

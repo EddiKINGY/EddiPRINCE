@@ -119,6 +119,23 @@ export function getRouteSeo(page: PageRoute, itemId?: string): RouteSeoMeta {
             noteOgImage = `${BASE_URL}/og/og-note-deconstructing-tatashi-market.jpg`;
           } else if (note.slug === 'ai-leverage-and-velocity' || note.id === 'fn-003') {
             noteOgImage = `${BASE_URL}/og/og-note-ai-leverage-and-velocity.jpg`;
+          } else if (note.slug === 'tatashi-market-backend-consolidation' || note.id === 'fn-004') {
+            noteOgImage = `${BASE_URL}/og/og-project-tatashi-market.jpg`;
+            return {
+              title: 'Tatashi Market Backend Consolidation | EddiPRINCE',
+              description: 'How I consolidated Tatashi Market from competing Express and FastAPI implementations into one canonical backend and authoritative request path.',
+              canonical: `${BASE_URL}/writing/tatashi-market-backend-consolidation`,
+              ogTitle: 'Tatashi Market: Consolidating the Backend — EddiPRINCE',
+              ogDescription: 'How I consolidated Tatashi Market from competing Express and FastAPI implementations into one canonical backend and authoritative request path.',
+              ogUrl: `${BASE_URL}/writing/tatashi-market-backend-consolidation`,
+              ogImage: noteOgImage,
+              ogImageAlt: 'Tatashi Market: Consolidating the Backend — EddiPRINCE',
+              twitterTitle: 'Tatashi Market Backend Consolidation | EddiPRINCE',
+              twitterDescription: 'How I consolidated Tatashi Market from competing Express and FastAPI implementations into one canonical backend and authoritative request path.',
+              twitterImage: noteOgImage,
+              twitterCard: 'summary_large_image',
+              author: DEFAULT_AUTHOR,
+            };
           }
 
           return {
