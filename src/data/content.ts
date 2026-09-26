@@ -75,27 +75,28 @@ export const PROJECTS: Project[] = [
     tagline: 'Cross-border digital commerce & verification protocol for emerging merchant networks.',
     shortDescription: 'An early-stage commerce infrastructure project exploring verified merchant identity, localized escrow settlement, and structured inventory discovery.',
     status: 'Early Development',
-    evidenceLevel: 'PLANNED',
+    evidenceLevel: 'IN_PROGRESS',
     category: 'Marketplace & Commerce',
     dateStarted: 'September 2026',
     problem: 'Cross-border commerce across emerging markets suffers from persistent trust deficits: informal WhatsApp-based trade lacks escrow protections, supplier identities are unverifiable before payment, and cross-currency settlement incurs predatory exchange fees.',
     motivation: 'I wanted to understand how trade rails function from first principles. Rather than building another generic shop, I am researching how identity verification and lightweight milestone escrow can remove existential risk for first-time cross-border buyers and suppliers.',
     vision: 'A resilient, low-overhead commercial exchange that turns informal micro-exporters into verifiable global merchants, supported by transparent transaction proofs and localized payment integrations.',
-    currentStage: 'System domain modeling and payment state machine design (pre-code specification).',
-    progressPercentage: 5,
+    currentStage: 'Consolidating active application server around Node.js/Express & PostgreSQL/Supabase; trade verification endpoints in progress.',
+    progressPercentage: 8,
     featured: true,
     technologies: [
       'TypeScript',
       'React / Vite',
       'Tailwind CSS',
-      'PostgreSQL Schema Design',
-      'Stripe & Mobile Money Rails',
+      'Node.js / Express',
+      'PostgreSQL / Supabase',
       'Statechart Machines'
     ],
     lessonsLearned: [
       'Theoretical principle: Trust is mechanical and social before it is technological; no smart contract or database replaces clear dispute arbitration.',
       'System design insight: Starting with the database schema too early locks you into rigid assumptions; customer journey wireframes must define the data entities.',
-      'Payment topology assumption: Payment rails in developing economies have distinct latency and failure modes that require asynchronous reconciliation queues.'
+      'Payment topology assumption: Payment rails in developing economies have distinct latency and failure modes that require asynchronous reconciliation queues.',
+      'Pragmatic architectural trade-off: Consolidating around a single working runtime (Express) beats maintaining competing backend implementations under mobile development constraints.'
     ],
     timeline: [
       {
@@ -109,19 +110,25 @@ export const PROJECTS: Project[] = [
         notes: 'Outlined core state machines for MerchantProfile, VerificationTier, EscrowContract, and ShipmentMilestone.'
       },
       {
+        date: 'September 2026',
+        title: 'Backend Architecture Consolidation',
+        notes: 'Consolidated the active server runtime around Node.js/Express and PostgreSQL/Supabase, parking the dual Python/FastAPI implementation to eliminate competing request paths.'
+      },
+      {
         date: 'Upcoming',
         title: 'Supplier Verification Wireframe Prototype',
         notes: 'Scoping a conceptual mobile-first onboarding wireframe.'
       }
     ],
-    relatedFieldNotes: ['deconstructing-tatashi-market', 'the-zero-state'],
+    relatedFieldNotes: ['tatashi-market-backend-consolidation', 'deconstructing-tatashi-market', 'the-zero-state'],
     relatedExperiments: ['exp-001', 'exp-003'],
-    relatedMilestones: ['jm-003', 'jm-002'],
+    relatedMilestones: ['jm-005', 'jm-003', 'jm-002'],
     relatedIdeas: ['b-3', 'b-4'],
     relatedResources: ['res-01', 'res-04'],
-    architectureNotes: 'The planned backend leverages an event-driven queue for payment webhook verification, tied to a multi-signature approval flow for escrow releases.',
+    architectureNotes: 'The canonical backend is consolidated around Node.js/Express with PostgreSQL/Supabase as the authoritative datastore. Python/FastAPI is parked as a future reference architecture.',
     links: [
       { label: 'Architecture Notes', url: '#notes', type: 'notes' },
+      { label: 'Read Consolidation Note', url: 'field-note:tatashi-market-backend-consolidation', type: 'docs' },
       { label: 'Read Case Study Note', url: 'field-note:deconstructing-tatashi-market', type: 'docs' }
     ]
   }
@@ -327,10 +334,83 @@ export const FIELD_NOTES: FieldNote[] = [
     relatedExperiments: ['exp-001', 'exp-002'],
     relatedIdeas: ['b-4', 'b-5'],
     relatedResources: ['res-06', 'res-07']
+  },
+  {
+    id: 'fn-004',
+    slug: 'tatashi-market-backend-consolidation',
+    title: 'Tatashi Market: Consolidating the Backend',
+    subtitle: 'From dual backend implementations to one canonical request path.',
+    author: 'EddiPRINCE',
+    publicationDate: 'September 26, 2026',
+    updatedDate: 'September 26, 2026',
+    category: 'TECHNOLOGY',
+    tags: ['systems', 'backend', 'architecture', 'tatashi-market', 'consolidation'],
+    readingTime: '6 min read',
+    featured: true,
+    summary: 'Tatashi Market previously contained both an Express/Node.js application server and a separate FastAPI implementation. Because only the Express runtime was actually connected to the development and deployment path, I consolidated the active architecture around Express to eliminate competing backend implementations and establish one canonical request path.',
+    tableOfContents: [
+      { id: 'the-dual-backend-dilemma', label: 'The Dual Backend Dilemma', level: 2 },
+      { id: 'the-reality-of-resource-constraints', label: 'The Reality of Resource Constraints', level: 2 },
+      { id: 'the-canonical-request-path', label: 'Establishing One Canonical Request Path', level: 2 },
+      { id: 'future-architecture-status', label: 'Status of the Python Architecture', level: 2 },
+      { id: 'next-engineering-steps', label: 'Next Engineering Steps', level: 2 }
+    ],
+    content: [
+      '### The Dual Backend Dilemma',
+      'Tatashi Market was originally conceived with dual backend trajectories: an active Express/Node.js application server wired into the early client build, alongside a separate Python/FastAPI implementation intended for domain services.',
+      'This created an architectural split:',
+      '```\nFrontend (React / Vite)\n   │\n   ├──> Node.js / Express (Active runtime in dev & deployment path)\n   │\n   └──> Python / FastAPI (Initial architectural direction, unmounted)\n```',
+      'In theory, maintaining two clean backend specifications allows evaluating framework trade-offs in parallel. In practice, when building under real-world constraints, dual implementations quickly produce cognitive friction, split attention, and diverging data schemas.',
+      '### The Reality of Resource Constraints',
+      'I still prefer Python for backend engineering and systems programming. However, honest engineering requires acknowledging the physical reality of one\'s development environment.',
+      'My current operational constraints include:',
+      '- Strictly limited development resources and solo execution.',
+      '- Building and testing primarily from a mobile setup and phone terminal.',
+      '- Friction maintaining and synchronizing a parallel Python virtualenv workflow in the current environment.',
+      '- The existing application already had a working, tested Node.js/Express server in place.',
+      'Faced with these realities, maintaining two competing backend codebases was not rigor—it was unnecessary overhead. The pragmatic engineering decision was straightforward: consolidate the currently running application around Express.',
+      'This was not an indictment of Python, nor an assertion that Express is universally superior. It is a contextual, resource-aware architectural decision. Engineering is about making optimal trade-offs within actual constraints, not hypothetical ideals.',
+      '### Establishing One Canonical Request Path',
+      'By consolidating around Node.js/Express as the sole canonical application server, the system topology becomes clean, unified, and verifiable:',
+      '```\nFrontend (React / Vite)\n   │\n   ▼\nCanonical Application Server (Node.js / Express)\n   │\n   ▼\nAuthoritative Datastore (PostgreSQL / Supabase)\n```',
+      'Every verification state machine, escrow webhook handler, and merchant profile endpoint now terminates through a single, unambiguous request pipeline. Schema changes happen once, migrations run cleanly against Supabase, and verification endpoints can be developed without cross-runtime ambiguity.',
+      '### Status of the Python Architecture',
+      'To maintain complete integrity about what is actually built and running:',
+      '- Python/FastAPI remains an approved future architectural option, not the active backend runtime.',
+      '- The Python codebase is parked as reference architecture rather than an actively running service.',
+      '- FastAPI is not currently running or deployed in production.',
+      '- Tatashi Market is not "shipped" or "production-ready"—it is in active, grounded development with a newly consolidated backend core.',
+      '### Next Engineering Steps',
+      'With the backend unified around Express and PostgreSQL/Supabase, the development roadmap focuses on concrete domain mechanics:',
+      '- Implementing verified merchant identity state transitions (Unverified → Submitted → Attested → Active).',
+      '- Building the milestone-based escrow release coordinator with multi-signature webhooks.',
+      '- Documenting API contracts with strict TypeScript schemas matching our PostgreSQL tables.',
+      'Simplicity is not the absence of ambition; it is the discipline to remove duplicate paths so real progress can compound.'
+    ],
+    relatedProjects: ['tatashi-market'],
+    relatedArticles: ['deconstructing-tatashi-market', 'the-zero-state'],
+    relatedExperiments: ['exp-001', 'exp-003'],
+    relatedMilestones: ['jm-005', 'jm-003'],
+    relatedIdeas: ['b-4'],
+    relatedResources: ['res-01']
   }
 ];
 
 export const JOURNEY_MILESTONES: JourneyMilestone[] = [
+  {
+    id: 'jm-005',
+    date: '2026-09-26',
+    formattedMonth: 'September 2026',
+    title: 'Consolidated Tatashi Market Backend Architecture',
+    type: 'breakthrough',
+    evidenceLevel: 'IN_PROGRESS',
+    description: 'Consolidated application architecture around a single canonical Node.js/Express backend with PostgreSQL/Supabase, parking Python/FastAPI as a future option.',
+    context: 'Pragmatic engineering trade-off: eliminated competing backend paths to streamline development under resource and mobile constraints.',
+    relatedProjects: ['tatashi-market'],
+    relatedNotes: ['tatashi-market-backend-consolidation', 'deconstructing-tatashi-market'],
+    relatedIdeas: ['b-4'],
+    relatedRoute: { page: 'notes', id: 'tatashi-market-backend-consolidation', label: 'Read Architecture Note' }
+  },
   {
     id: 'jm-004',
     date: '2026-09-05',
@@ -388,11 +468,11 @@ export const JOURNEY_MILESTONES: JourneyMilestone[] = [
 ];
 
 export const NOW_DATA: NowData = {
-  lastUpdated: 'September 5, 2026',
+  lastUpdated: 'September 26, 2026',
   building: [
     {
-      title: 'Tatashi Market (V0.1 Architecture)',
-      desc: 'Formulating the verification state machines and database topology for cross-border merchant escrow.',
+      title: 'Tatashi Market (Backend Consolidation)',
+      desc: 'Consolidated active server runtime around Node.js/Express & PostgreSQL/Supabase; developing verification endpoints under mobile constraints.',
       linkRoute: 'builds',
       linkId: 'tatashi-market'
     },
@@ -443,8 +523,8 @@ export const NOW_DATA: NowData = {
     'How to design digital products that treat user attention as a scarce and sacred resource.'
   ],
   next: [
-    'Complete the interactive supplier onboarding wireframe prototype for Tatashi Market.',
-    'Publish Field Note #004 on statecharts in financial workflows.',
+    'Implement core merchant verification and escrow state machine endpoints in the consolidated Express backend.',
+    'Scoping the interactive supplier onboarding wireframe prototype for Tatashi Market.',
     'Formulate discovery questions for cross-border logistics research.'
   ]
 };
